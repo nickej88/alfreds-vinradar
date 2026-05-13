@@ -26,6 +26,7 @@ WATCHLIST = [
     "Fuligni",
     "Valdicava",
     "Azelia"
+    "vin"
 ]
 
 URL = "https://www.systembolaget.se/nytt/om-vara-nyheter/lanseringar/"
