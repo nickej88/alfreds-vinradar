@@ -36,7 +36,6 @@ bot = Bot(token=TELEGRAM_TOKEN)
 # HUVUDFUNKTION
 # =========================
 
-
 def scan_systembolaget():
     print("Skannar Systembolaget...")
 
@@ -51,16 +50,12 @@ def scan_systembolaget():
                 found.append(producer)
 
         if found:
-            message = "🍷 Alfreds Vinradar
-
-"
+            message = "🍷 Alfreds Vinradar\n\n"
 
             for wine in found:
-                message += f"🔥 Intressant producent hittad: {wine}
-"
+                message += f"🔥 Intressant producent hittad: {wine}\n"
 
-            message += "
-Kolla Systembolaget direkt, sir."
+            message += "\nKolla Systembolaget direkt, sir."
 
             bot.send_message(chat_id=CHAT_ID, text=message)
             print("Notifiering skickad")
