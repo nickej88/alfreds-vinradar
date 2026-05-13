@@ -43,12 +43,16 @@ def scan_systembolaget():
     try:
         response = requests.get(URL, timeout=20)
         html = response.text.lower()
-
+        
+        print(html[:5000])
+        
         found = []
 
         for producer in WATCHLIST:
             if producer.lower() in html:
                 found.append(producer)
+        
+        print(found)
 
         if found:
             message = "🍷 Alfreds Vinradar\n\n"
