@@ -74,6 +74,8 @@ def scan_systembolaget():
 schedule.every(1).minutes.do(scan_systembolaget)
 print("🍷 Alfreds Vinradar aktiv")
 
+bot.send_message(chat_id=CHAT_ID, text="🍷 Alfreds Vinradar är online")
+
 while True:
     schedule.run_pending()
     time.sleep(30)
