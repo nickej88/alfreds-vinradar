@@ -71,8 +71,7 @@ def scan_systembolaget():
 # SCHEMA
 # =========================
 
-schedule.every().day.at("09:00").do(scan_systembolaget)
-
+schedule.every(1).minutes.do(scan_systembolaget)
 print("🍷 Alfreds Vinradar aktiv")
 
 while True:
