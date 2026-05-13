@@ -75,12 +75,39 @@ def scan_systembolaget():
 # =========================
 # SCHEMA
 # =========================
-
-schedule.every(1).minutes.do(scan_systembolaget)
+schedule.every().day.at("09:00").do(scan_systembolaget)
 print("🍷 Alfreds Vinradar aktiv")
 
 bot.send_message(chat_id=CHAT_ID, text="🍷 Alfreds Vinradar är online")
 
+LAST_UPDATE_ID = None
+
+def check_messages():
+    global LAST_UPDATE_ID
+
+    updates = bot.get_updates(offset=LAST_UPDATE_ID, timeout=10)
+
+    for update in updates:
+        LAST_UPDATE_ID = update.update_id + 1
+
+        if update.message:
+            text = update.message.text.lower()
+
+            if text == "vin":
+                bot.send_message(
+                    chat_id=CHAT_ID,
+                    text="🍷 Alfred rapporterar: Vinradarn är aktiv, sir."
+                )
+
+            elif text == "scan":
+                scan_systembolaget()
+
+            else:
+                bot.send_message(
+                    chat_id=CHAT_ID,
+                    text=f"Jag förstår inte kommandot: {text}"
+                )
 while True:
     schedule.run_pending()
-    time.sleep(30)
+    check_messages()
+    time.sleep(5)
