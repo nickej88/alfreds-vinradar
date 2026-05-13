@@ -9,8 +9,8 @@ from telegram import Bot
 # KONFIGURATION
 # =========================
 
-TELEGRAM_TOKEN = "TELEGRAM_TOKEN"
-CHAT_ID = "CHAT_ID"
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 WATCHLIST = [
     "Vietti",
