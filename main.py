@@ -72,6 +72,20 @@ def scan_systembolaget():
     except Exception as e:
         print(f"Fel: {e}")
 
+def search_wines(search_term):
+    url = f"https://www.systembolaget.se/sortiment/?textQuery={search_term}"
+
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        return f"🍷 Sökte efter: {search_term}\n\nÖppna:\n{url}"
+    else:
+        return "Kunde inte kontakta Systembolaget."
+        
 # =========================
 # SCHEMA
 # =========================
@@ -93,14 +107,25 @@ def check_messages():
         if update.message:
             text = update.message.text.lower()
 
+            if text.startswith("/search "):
+            search_term = text.replace("/search ", "")
+
+    result = search_wines(search_term)
+
+    bot.send_message(
+        chat_id=CHAT_ID,
+        text=result
+    )
+
+elif text == "scan":
+    scan_systembolaget()
+
+            
             if text == "vin":
                 bot.send_message(
                     chat_id=CHAT_ID,
                     text="🍷 Alfred rapporterar: Vinradarn är aktiv, sir."
                 )
-
-            elif text == "scan":
-                scan_systembolaget()
 
             else:
                 bot.send_message(
