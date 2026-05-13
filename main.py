@@ -108,42 +108,31 @@ def check_messages():
             text = update.message.text.lower()
 
             if text.startswith("/search "):
-            search_term = text.replace("/search ", "")
+                search_term = text.replace("/search ", "")
 
-    result = search_wines(search_term)
+                result = search_wines(search_term)
 
-    bot.send_message(
-        chat_id=CHAT_ID,
-        text=result
-    )
+                bot.send_message(
+                chat_id=CHAT_ID,
+                text=result
+                )
 
-elif text == "scan":
-    scan_systembolaget()
+            elif text.lower() == "vin":
+               bot.send_message(
+               chat_id=CHAT_ID,
+               text="🍷 Alfred rapporterar: Vinradarn är aktiv, sir."
+               )
+
+            elif text.lower() == "scan":
+               scan_systembolaget()
+
+            else:
+               bot.send_message(
+               chat_id=CHAT_ID,
+               text=f"Jag förstår inte kommandot: {text}"
+               )
 
 while True:
     schedule.run_pending()
-    check_messages(if text.startswith("/search "):
-    search_term = text.replace("/search ", "")
-
-    result = search_wines(search_term)
-
-    bot.send_message(
-        chat_id=CHAT_ID,
-        text=result
-    )
-
-elif text.lower() == "vin":
-    bot.send_message(
-        chat_id=CHAT_ID,
-        text="🍷 Alfred rapporterar: Vinradarn är aktiv, sir."
-    )
-
-elif text.lower() == "scan":
-    scan_systembolaget()
-
-else:
-    bot.send_message(
-        chat_id=CHAT_ID,
-        text=f"Jag förstår inte kommandot: {text}"
-    ))
+    check_messages()
     time.sleep(5)
