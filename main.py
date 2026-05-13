@@ -30,6 +30,9 @@ WATCHLIST = [
     "champagne",
 ]
 
+
+seen_wines = set()
+
 URL = "https://www.systembolaget.se/nytt/om-vara-nyheter/lanseringar/"
 
 bot = Bot(token=TELEGRAM_TOKEN)
@@ -50,8 +53,12 @@ def scan_systembolaget():
         found = []
 
         for producer in WATCHLIST:
-            if producer.lower() in html:
-                found.append(producer)
+
+           if producer.lower() in html:
+
+              if producer not in seen_wines:
+                  found.append(producer)
+                  seen_wines.add(producer)
         
         print(found)
 
