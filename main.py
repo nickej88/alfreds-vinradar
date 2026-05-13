@@ -4,7 +4,6 @@ import schedule
 import time
 from bs4 import BeautifulSoup
 from telegram import Bot
-import json
 
 # =========================
 # KONFIGURATION
@@ -75,7 +74,7 @@ def scan_systembolaget():
 
 def search_wines(search_term):
 
-    url = f"https://www.systembolaget.se/api/productsearch/search?query={search_term}"
+    url = f"https://www.systembolaget.se/sortiment/?text={search_term}"
 
     headers = {
         "User-Agent": "Mozilla/5.0"
@@ -84,30 +83,18 @@ def search_wines(search_term):
     try:
         response = requests.get(url, headers=headers, timeout=20)
 
-        data = response.json()
+        if response.status_code == 200:
 
-        products = data.get("products", [])
+            return (
+                f"🍷 Sökte efter: {search_term}\n\n"
+                f"Öppna:\n{url}"
+            )
 
-        if not products:
-            return f"Inga träffar för: {search_term}"
-
-        message = f"🍷 Resultat för: {search_term}\n\n"
-
-        for product in products[:5]:
-
-            name = product.get("productNameBold", "Okänt vin")
-            price = product.get("price", "Ingen info")
-            country = product.get("country", "Okänt land")
-
-            message += f"🍷 {name}\n"
-            message += f"💰 {price} kr\n"
-            message += f"🌍 {country}\n\n"
-
-        return message
+        else:
+            return "Systembolaget svarade inte korrekt, sir."
 
     except Exception as e:
         return f"Fel vid sökning: {e}"
-
 
 
 
