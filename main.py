@@ -26,8 +26,6 @@ WATCHLIST = [
     "Fuligni",
     "Valdicava",
     "Azelia",
-    "vin",
-    "champagne",
 ]
 
 
@@ -47,34 +45,45 @@ def scan_systembolaget():
     try:
         response = requests.get(URL, timeout=20)
         html = response.text.lower()
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        links = soup.find_all("a")
+
+        for link in links:
+
+             href = link.get("href")
+
+             if href:
+                 print(href)
+
+       
+#        print(html[:5000])
         
-        print(html[:5000])
+#        found = []
+
+#        for producer in WATCHLIST:
+
+ #          if producer.lower() in html:
+
+ #             if producer not in seen_wines:
+   #               found.append(producer)
+   #               seen_wines.add(producer)
         
-        found = []
+  #      print(found)
 
-        for producer in WATCHLIST:
+  #      if found:
+ #           message = "🍷 Alfreds Vinradar\n\n"
 
-           if producer.lower() in html:
+ #           for wine in found:
+#                message += f"🔥 Intressant producent hittad: {wine}\n"
 
-              if producer not in seen_wines:
-                  found.append(producer)
-                  seen_wines.add(producer)
-        
-        print(found)
+ #           message += "\nKolla Systembolaget direkt, sir."
 
-        if found:
-            message = "🍷 Alfreds Vinradar\n\n"
+  #          bot.send_message(chat_id=CHAT_ID, text=message)
+  #          print("Notifiering skickad")
 
-            for wine in found:
-                message += f"🔥 Intressant producent hittad: {wine}\n"
-
-            message += "\nKolla Systembolaget direkt, sir."
-
-            bot.send_message(chat_id=CHAT_ID, text=message)
-            print("Notifiering skickad")
-
-        else:
-            print("Inget intressant idag")
+ #       else:
+#            print("Inget intressant idag")
 
     except Exception as e:
         print(f"Fel: {e}")
