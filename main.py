@@ -16,18 +16,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 
 WATCHLIST = [
     "Vietti",
-    "Massolino",
-    "G.D. Vajra",
-    "Produttori",
-    "Le Ragnaie",
-    "Il Poggione",
-    "Guigal",
-    "Beaucastel",
-    "Charles Heidsieck",
-    "Bollinger",
-    "Fuligni",
-    "Valdicava",
-    "Azelia",
+
 ]
 
 seen_urls = set()
