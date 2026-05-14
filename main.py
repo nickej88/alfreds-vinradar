@@ -69,7 +69,23 @@ def scan_systembolaget():
 
         data = response.json()
 
-        print(data)
+        products = data["products"]
+
+        for product in products:
+
+            producer = product["producerName"]
+            wine_name = product["productNameBold"]
+            vintage = product.get("vintage")
+            price = product["price"]
+            launch_date = product["productLaunchDate"]
+
+            print(
+                f"{producer} | "
+                f"{wine_name} | "
+                f"{vintage} | "
+                f"{price} kr | "
+                f"{launch_date}"
+            )
 
     except Exception as e:
         print(f"Fel: {e}")
