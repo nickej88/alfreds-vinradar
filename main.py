@@ -10,6 +10,7 @@ from telegram import Bot
 
 API_URL = "https://api-extern.systembolaget.se/sb-api-ecommerce/v1/productsearch/search"
 
+API_KEY = os.getenv("SB_API_KEY")
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
@@ -24,7 +25,7 @@ URL = "https://www.systembolaget.se/nytt/om-vara-nyheter/lanseringar/"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0",
-    "Ocp-Apim-Subscription-Key": "8d39a7340ee7439f8b4c1e995c8f3e4a"
+    "Ocp-Apim-Subscription-Key": API_KEY
 }
 
 bot = Bot(token=TELEGRAM_TOKEN)
