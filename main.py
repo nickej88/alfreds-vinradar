@@ -21,8 +21,6 @@ WATCHLIST = [
 
 seen_wines = set()
 
-URL = "https://www.systembolaget.se/nytt/om-vara-nyheter/lanseringar/"
-
 HEADERS = {
     "User-Agent": "Mozilla/5.0",
     "Ocp-Apim-Subscription-Key": API_KEY
@@ -124,13 +122,13 @@ def scan_systembolaget():
                             )
                         )
 
-                    print(
-                        f"{producer} | "
-                        f"{wine_name} | "
-                        f"{vintage} | "
-                        f"{price} kr | "
-                        f"{launch_date}"
-                    )
+                        print(
+                            f"{producer} | "
+                            f"{wine_name} | "
+                            f"{vintage} | "
+                            f"{price} kr | "
+                            f"{launch_date}"
+                        )
                     
             time.sleep(1)
     
