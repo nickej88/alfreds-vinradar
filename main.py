@@ -47,8 +47,10 @@ bot = Bot(token=TELEGRAM_TOKEN)
 # =========================
 def scan_systembolaget():
 
-        print("🍷 Skannar via API...")
+    print("🍷 Skannar via API...")
 
+    try:
+        
         params = {
             "page": 1,
             "size": 30,
