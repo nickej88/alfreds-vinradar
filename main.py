@@ -80,8 +80,8 @@ def scan_systembolaget():
                       print(f"Fel på undersida: {e}")
             
 
-except Exception as e:
-    print(f"Fel: {e}")
+    except Exception as e:
+        print(f"Fel: {e}")
 
 
 def search_wines(search_term):
