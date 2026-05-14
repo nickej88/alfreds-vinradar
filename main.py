@@ -128,23 +128,58 @@ def scan_systembolaget():
 
 def search_wines(search_term):
 
-    url = f"https://www.systembolaget.se/sortiment/?text={search_term}"
+
+    params = {
+        "page": 1,
+        "size": 10,
+        "sortBy": "Score",
+        "sortDirection": "Ascending",
+        "textQuery": search_term
+    }
 
     try:
-        response = requests.get(url, headers=HEADERS, timeout=20)
 
-        if response.status_code == 200:
+        response = requests.get(
+            API_URL,
+            headers=HEADERS,
+            params=params,
+            timeout=20
+        )
 
-            return (
-                f"🍷 Sökte efter: {search_term}\n\n"
-                f"Öppna:\n{url}"
+        data = response.json()
+
+        products = data["products"]
+
+        if not products:
+            return "🍷 Alfred hittade inget, sir."
+
+        message = "🍷 Alfred hittade:\n\n"
+
+        for product in products:
+
+            category = product.get("categoryLevel1")
+
+            if category != "Vin":
+                continue
+
+            producer = product.get("producerName")
+            wine_name = product.get("productNameBold")
+            vintage = product.get("vintage")
+            price = product.get("price")
+
+            message += (
+                f"{producer} | "
+                f"{wine_name} | "
+                f"{vintage} | "
+                f"{price} kr\n"
             )
 
-        else:
-            return "Systembolaget svarade inte korrekt, sir."
+        return message
 
     except Exception as e:
         return f"Fel vid sökning: {e}"
+
+
 
 
 
