@@ -68,13 +68,13 @@ def scan_systembolaget():
                      
                      for wine_link in wine_links:
 
-                     wine_href = wine_link.get("href")
+                         wine_href = wine_link.get("href")
 
-                     if wine_href and "/produkt/" in wine_href:
+                         if wine_href and "/produkt/" in wine_href:
 
-                        wine_url = "https://www.systembolaget.se" + wine_href
+                            wine_url = "https://www.systembolaget.se" + wine_href
 
-                        print(wine_url)
+                            print(wine_url)
                      
                      
                      for producer in WATCHLIST:
