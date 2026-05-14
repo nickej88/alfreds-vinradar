@@ -91,6 +91,18 @@ def scan_systembolaget():
                                 seen_urls.add(wine_url)
 
                                 print(wine_url)
+
+                                wine_page = requests.get(wine_url, headers=HEADERS, timeout=20)
+
+                                wine_soup = BeautifulSoup(wine_page.text, "html.parser")
+
+                                title = wine_soup.find("title")
+
+                                if title:
+
+                                    wine_name = title.text.strip()
+
+                                    print(wine_name)
                      
                      
                      for producer in WATCHLIST:
