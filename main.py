@@ -166,12 +166,15 @@ def search_wines(search_term):
             wine_name = product.get("productNameBold")
             vintage = product.get("vintage")
             price = product.get("price")
-
+            product_url = (
+            f"https://www.systembolaget.se/sortiment/"
+            f"?textQuery={wine_name}")
+    
             message += (
-                f"{producer} | "
-                f"{wine_name} | "
-                f"{vintage} | "
+                f"🍷 {wine_name} {vintage}\n"
                 f"{price} kr\n"
+                f"🔗 {product_url}\n\n"
+                
             )
 
         return message
