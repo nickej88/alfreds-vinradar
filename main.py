@@ -2,7 +2,6 @@ import os
 import requests
 import schedule
 import time
-from bs4 import BeautifulSoup
 from telegram import Bot
 
 # =========================
@@ -18,8 +17,6 @@ WATCHLIST = [
     "Vietti",
 
 ]
-
-seen_urls = set()
 
 seen_wines = set()
 
@@ -92,11 +89,12 @@ def scan_systembolaget():
                 if category != "Vin":
                     continue
 
-                producer = product["producerName"]
+                producer = product.get("producerName", "Okänd producent")
                 wine_name = product["productNameBold"]
-                vintage = product.get("vintage")
+                vintage = product.get("vintage") or "NV"
                 price = product["price"]
                 launch_date = product["productLaunchDate"]
+                launch_date = launch_date.split("T")[0]
 
                 if producer in WATCHLIST:
 
@@ -162,12 +160,11 @@ def search_wines(search_term):
             if category != "Vin":
                 continue
 
-            producer = product.get("producerName")
+            producer = product.get("producerName", "Okänd producent")
             wine_name = product.get("productNameBold")
-            vintage = product.get("vintage")
+            vintage = product.get("vintage") or "NV"
             price = product.get("price")
             product_number = product["productNumber"]
-            slug = wine_name.lower().replace(" ", "-")
             product_url = (
             "https://www.systembolaget.se/sortiment/?q="
             f"{product_number}"
@@ -194,6 +191,13 @@ def search_wines(search_term):
 # =========================
 schedule.every(3).hours.do(scan_systembolaget)
 print("🍷 Alfreds Vinradar aktiv")
+
+wine_id = f"{producer}-{wine_name}-{vintage}"
+
+if wine_id in seen_wines:
+    continue
+
+seen_wines.add(wine_id)
 
 bot.send_message(chat_id=CHAT_ID, text="🍷 Alfreds Vinradar är online")
 
@@ -235,6 +239,8 @@ def check_messages():
                text=f"Jag förstår inte kommandot: {text}"
                )
 time.sleep(5)
+
+scan_systembolaget()
 
 while True:
     schedule.run_pending()
