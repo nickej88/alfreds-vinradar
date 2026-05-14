@@ -34,6 +34,10 @@ seen_wines = set()
 
 URL = "https://www.systembolaget.se/nytt/om-vara-nyheter/lanseringar/"
 
+HEADERS = {
+    "User-Agent": "Mozilla/5.0"
+}
+
 bot = Bot(token=TELEGRAM_TOKEN)
 
 # =========================
@@ -44,8 +48,7 @@ def scan_systembolaget():
     print("Skannar Systembolaget...")
 
     try:
-        response = requests.get(URL, timeout=20)
-        html = response.text.lower()
+        response = requests.get(URL, headers=HEADERS, timeout=20)
         soup = BeautifulSoup(response.text, "html.parser")
 
         links = soup.find_all("a")
@@ -56,14 +59,21 @@ def scan_systembolaget():
 
             href = link.get("href")
 
-            if href and "/sortiment/" in href:
+            if href and (
+                "tillfalligt-sortiment" in href
+                or "webblanseringar" in href
+                ):
 
                  full_url = "https://www.systembolaget.se" + href
+                 if full_url in seen_urls:
+                    continue
 
+                 seen_urls.add(full_url)
+                    
                  print(full_url)
 
                  try:
-                     sub_response = requests.get(full_url, timeout=20)
+                     sub_response = requests.get(full_url, headers=HEADERS, timeout=20)
                      sub_html = sub_response.text.lower()
                      sub_soup = BeautifulSoup(sub_response.text, "html.parser")
                      wine_links = sub_soup.find_all("a")
@@ -107,12 +117,8 @@ def search_wines(search_term):
 
     url = f"https://www.systembolaget.se/sortiment/?text={search_term}"
 
-    headers = {
-        "User-Agent": "Mozilla/5.0"
-    }
-
     try:
-        response = requests.get(url, headers=headers, timeout=20)
+        response = requests.get(url, headers=HEADERS, timeout=20)
 
         if response.status_code == 200:
 
@@ -132,7 +138,7 @@ def search_wines(search_term):
 # =========================
 # SCHEMA
 # =========================
-schedule.every().day.at("09:00").do(scan_systembolaget)
+schedule.every(3).hours.do(scan_systembolaget)
 print("🍷 Alfreds Vinradar aktiv")
 
 bot.send_message(chat_id=CHAT_ID, text="🍷 Alfreds Vinradar är online")
