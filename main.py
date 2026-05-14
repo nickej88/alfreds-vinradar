@@ -76,7 +76,7 @@ def scan_systembolaget():
                                     chat_id=CHAT_ID,
                                     text=f"🍷 Alfred hittade {producer} i:\n{full_url}"
                                 )
-                  except Exception as e:
+                 except Exception as e:
                       print(f"Fel på undersida: {e}")
             
 
