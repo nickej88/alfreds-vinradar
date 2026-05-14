@@ -41,7 +41,29 @@ def scan_systembolaget():
     print("🍷 Skannar via API...")
 
     try:
-        for page in range(1, 6): 
+        first_params = {
+            "page": 1,
+            "size": 30,
+            "sortBy": "Score",
+            "sortDirection": "Ascending",
+            "assortmentText": "Tillfälligt sortiment"
+        }
+
+        first_response = requests.get(
+            API_URL,
+            headers=HEADERS,
+            params=first_params,
+            timeout=20
+        )
+
+        first_data = first_response.json()
+
+        total_pages = first_data["metadata"]["totalPages"]
+
+        print(f"🍷 Hittade {total_pages} sidor")
+
+        for page in range(1, total_pages + 1):     
+        
             params = {
                 "page": page,
                 "size": 30,
@@ -59,6 +81,8 @@ def scan_systembolaget():
 
             data = response.json()
 
+            print(f"🍷 Sida {page}")
+            
             products = data["products"]
 
             for product in products:
