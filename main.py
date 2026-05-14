@@ -9,6 +9,8 @@ from telegram import Bot
 # KONFIGURATION
 # =========================
 
+API_URL = "https://api-extern.systembolaget.se/sb-api-ecommerce/v1/productsearch/search"
+
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
@@ -43,87 +45,28 @@ bot = Bot(token=TELEGRAM_TOKEN)
 # =========================
 # HUVUDFUNKTION
 # =========================
-
 def scan_systembolaget():
-    print("Skannar Systembolaget...")
 
-    try:
-        response = requests.get(URL, headers=HEADERS, timeout=20)
-        soup = BeautifulSoup(response.text, "html.parser")
+    print("🍷 Skannar via API...")
 
-        links = soup.find_all("a")
+    params = {
+        "page": 1,
+        "size": 30,
+        "sortBy": "Score",
+        "sortDirection": "Ascending",
+        "assortmentText": "Tillfälligt sortiment"
+    }
 
+    response = requests.get(
+        API_URL,
+        headers=HEADERS,
+        params=params,
+        timeout=20
+    )
 
-        
-        for link in links:
+    data = response.json()
 
-            href = link.get("href")
-
-            if href and (
-                "tillfalligt-sortiment" in href
-                or "webblanseringar" in href
-                ):
-
-                 full_url = "https://www.systembolaget.se" + href
-                 if full_url in seen_urls:
-                    continue
-
-                 seen_urls.add(full_url)
-                    
-                 print(full_url)
-
-                 try:
-                     sub_response = requests.get(full_url, headers=HEADERS, timeout=20)
-                     sub_html = sub_response.text.lower()
-                     sub_soup = BeautifulSoup(sub_response.text, "html.parser")
-                     wine_links = sub_soup.find_all("a")
-                     
-                     for wine_link in wine_links:
-
-                         wine_href = wine_link.get("href")
-
-                         if wine_href and "/produkt/" in wine_href:
-
-                            wine_url = "https://www.systembolaget.se" + wine_href
-
-                            if wine_url not in seen_urls:
-
-                                seen_urls.add(wine_url)
-
-                                print(wine_url)
-
-                                wine_page = requests.get(
-                                    wine_url, 
-                                    headers=HEADERS, 
-                                    timeout=20
-                                )
-
-                                wine_soup = BeautifulSoup(wine_page.text, "html.parser")
-
-                                title = wine_soup.find("title")
-
-                                if title:
-
-                                    wine_name = title.text.strip()
-
-                                    print(wine_page.text[:1000])
-                     
-                     
-                     for producer in WATCHLIST:
-
-                        if producer.lower() in sub_html:
-
-                            if producer not in seen_wines:
-
-                                seen_wines.add(producer)
-
-                                bot.send_message(
-                                    chat_id=CHAT_ID,
-                                    text=f"🍷 Alfred hittade {producer} i:\n{full_url}"
-                                )
-                 except Exception as e:
-                      print(f"Fel på undersida: {e}")
-            
+    print(data)
 
     except Exception as e:
         print(f"Fel: {e}")
