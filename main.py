@@ -28,6 +28,8 @@ WATCHLIST = [
     "Azelia",
 ]
 
+seen_urls = set()
+
 seen_wines = set()
 
 URL = "https://www.systembolaget.se/nytt/om-vara-nyheter/lanseringar/"
@@ -74,7 +76,11 @@ def scan_systembolaget():
 
                             wine_url = "https://www.systembolaget.se" + wine_href
 
-                            print(wine_url)
+                            if wine_url not in seen_urls:
+
+                                seen_urls.add(wine_url)
+
+                                print(wine_url)
                      
                      
                      for producer in WATCHLIST:
