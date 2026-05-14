@@ -238,11 +238,11 @@ def check_messages():
                chat_id=CHAT_ID,
                text=f"Jag förstår inte kommandot: {text}"
                )
-time.sleep(5)
+time.sleep(15)
 
 scan_systembolaget()
 
 while True:
     schedule.run_pending()
     check_messages()
-    time.sleep(5)
+    time.sleep(15)
