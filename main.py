@@ -180,6 +180,7 @@ def check_messages():
                chat_id=CHAT_ID,
                text=f"Jag förstår inte kommandot: {text}"
                )
+time.sleep(5)
 
 while True:
     schedule.run_pending()
