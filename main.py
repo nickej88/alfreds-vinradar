@@ -37,7 +37,7 @@ bot.delete_webhook(drop_pending_updates=True)
 # HUVUDFUNKTION
 # =========================
 def scan_systembolaget():
-
+    
     print("🍷 Skannar via API...")
 
     try:
@@ -87,19 +87,29 @@ def scan_systembolaget():
 
             for product in products:
 
+                category = product.get("categoryLevel1")
+
+                if category != "Vin":
+                    continue
+
                 producer = product["producerName"]
                 wine_name = product["productNameBold"]
                 vintage = product.get("vintage")
                 price = product["price"]
                 launch_date = product["productLaunchDate"]
 
-                print(
-                    f"{producer} | "
-                    f"{wine_name} | "
-                    f"{vintage} | "
-                    f"{price} kr | "
-                    f"{launch_date}"
-                )
+                if producer in WATCHLIST:
+
+                    print(f"🍷 MATCH: {producer}")
+
+                    print(
+                        f"{producer} | "
+                        f"{wine_name} | "
+                        f"{vintage} | "
+                        f"{price} kr | "
+                        f"{launch_date}"
+                    )
+                    
             time.sleep(1)
     
     except Exception as e:
