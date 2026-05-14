@@ -166,11 +166,11 @@ def search_wines(search_term):
             wine_name = product.get("productNameBold")
             vintage = product.get("vintage")
             price = product.get("price")
-            product_number = product.get("productNumberShort")
+            product_number = product["productNumber"]
             slug = wine_name.lower().replace(" ", "-")
             product_url = (
-            f"https://www.systembolaget.se/produkt/vin/"
-            f"{slug}-{product_number}/"
+            "https://www.systembolaget.se/sortiment/?q="
+            f"{product_number}"
             )
     
             message += (
