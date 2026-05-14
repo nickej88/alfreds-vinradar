@@ -97,19 +97,32 @@ def scan_systembolaget():
                 launch_date = product["productLaunchDate"]
                 launch_date = launch_date.split("T")[0]
 
-                if producer in WATCHLIST:
+                for watch in WATCHLIST:
 
-                    bot.send_message(
-                        chat_id=CHAT_ID,
-                        text=(
-                            f"🍷 Alfred hittade något intressant\n\n"
-                            f"Producent: {producer}\n"
-                            f"Vin: {wine_name}\n"
-                            f"Årgång: {vintage}\n"
-                            f"Pris: {price} kr\n"
-                            f"Släpp: {launch_date}"
+                    if (
+                        watch.lower() in producer.lower()
+                        or
+                        watch.lower() in wine_name.lower()
+                    ):
+                    
+                        wine_id = f"{producer}-{wine_name}-{vintage}"
+
+                        if wine_id in seen_wines:
+                            continue
+
+                        seen_wines.add(wine_id)
+                    
+                        bot.send_message(
+                            chat_id=CHAT_ID,
+                            text=(
+                                f"🍷 Alfred hittade något intressant\n\n"
+                                f"Producent: {producer}\n"
+                                f"Vin: {wine_name}\n"
+                                f"Årgång: {vintage}\n"
+                                f"Pris: {price} kr\n"
+                                f"Släpp: {launch_date}"
+                            )
                         )
-                    )
 
                     print(
                         f"{producer} | "
@@ -192,13 +205,6 @@ def search_wines(search_term):
 # =========================
 schedule.every().day.at("08:00").do(scan_systembolaget)
 print("🍷 Alfreds Vinradar aktiv")
-
-wine_id = f"{producer}-{wine_name}-{vintage}"
-
-if wine_id in seen_wines:
-    continue
-
-seen_wines.add(wine_id)
 
 bot.send_message(chat_id=CHAT_ID, text="🍷 Alfreds Vinradar är online")
 
