@@ -28,7 +28,6 @@ WATCHLIST = [
     "Azelia",
 ]
 
-
 seen_wines = set()
 
 URL = "https://www.systembolaget.se/nytt/om-vara-nyheter/lanseringar/"
@@ -49,45 +48,39 @@ def scan_systembolaget():
 
         links = soup.find_all("a")
 
+
+        
         for link in links:
 
-             href = link.get("href")
+            href = link.get("href")
 
-             if href:
-                 if "tillfalligt-sortiment" in href or "webblanseringar" in href:
-                     print(href)
+            if href and "/sortiment/" in href:
 
+                 full_url = "https://www.systembolaget.se" + href
+
+                 print(full_url)
+
+                 try:
+                     sub_response = requests.get(full_url, timeout=20)
+                     sub_html = sub_response.text.lower()
+
+                     for producer in WATCHLIST:
+
+                        if producer.lower() in sub_html:
+
+                            if producer not in seen_wines:
+
+                                seen_wines.add(producer)
+
+                                bot.send_message(
+                                    chat_id=CHAT_ID,
+                                    text=f"🍷 Alfred hittade {producer} i:\n{full_url}"
+                                )
+
+                 except Exception as e:
+                     print(f"Fel på undersida: {e}")
+            
        
-#        print(html[:5000])
-        
-#        found = []
-
-#        for producer in WATCHLIST:
-
- #          if producer.lower() in html:
-
- #             if producer not in seen_wines:
-   #               found.append(producer)
-   #               seen_wines.add(producer)
-        
-  #      print(found)
-
-  #      if found:
- #           message = "🍷 Alfreds Vinradar\n\n"
-
- #           for wine in found:
-#                message += f"🔥 Intressant producent hittad: {wine}\n"
-
- #           message += "\nKolla Systembolaget direkt, sir."
-
-  #          bot.send_message(chat_id=CHAT_ID, text=message)
-  #          print("Notifiering skickad")
-
- #       else:
-#            print("Inget intressant idag")
-
-    except Exception as e:
-        print(f"Fel: {e}")
 
 def search_wines(search_term):
 
