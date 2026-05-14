@@ -41,42 +41,43 @@ def scan_systembolaget():
     print("🍷 Skannar via API...")
 
     try:
-        
-        params = {
-            "page": 1,
-            "size": 30,
-            "sortBy": "Score",
-            "sortDirection": "Ascending",
-            "assortmentText": "Tillfälligt sortiment"
-        }
+        for page in range(1, 6): 
+            params = {
+                "page": page,
+                "size": 30,
+                "sortBy": "Score",
+                "sortDirection": "Ascending",
+                "assortmentText": "Tillfälligt sortiment"
+            }
 
-        response = requests.get(
-            API_URL,
-            headers=HEADERS,
-            params=params,
-            timeout=20
-        )
-
-        data = response.json()
-
-        products = data["products"]
-
-        for product in products:
-
-            producer = product["producerName"]
-            wine_name = product["productNameBold"]
-            vintage = product.get("vintage")
-            price = product["price"]
-            launch_date = product["productLaunchDate"]
-
-            print(
-                f"{producer} | "
-                f"{wine_name} | "
-                f"{vintage} | "
-                f"{price} kr | "
-                f"{launch_date}"
+            response = requests.get(
+                API_URL,
+                headers=HEADERS,
+                params=params,
+                timeout=20
             )
 
+            data = response.json()
+
+            products = data["products"]
+
+            for product in products:
+
+                producer = product["producerName"]
+                wine_name = product["productNameBold"]
+                vintage = product.get("vintage")
+                price = product["price"]
+                launch_date = product["productLaunchDate"]
+
+                print(
+                    f"{producer} | "
+                    f"{wine_name} | "
+                    f"{vintage} | "
+                    f"{price} kr | "
+                    f"{launch_date}"
+                )
+            time.sleep(1)
+    
     except Exception as e:
         print(f"Fel: {e}")
 
