@@ -42,6 +42,7 @@ HEADERS = {
 }
 
 bot = Bot(token=TELEGRAM_TOKEN)
+bot.delete_webhook(drop_pending_updates=True)
 
 # =========================
 # HUVUDFUNKTION
