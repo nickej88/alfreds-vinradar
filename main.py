@@ -37,7 +37,8 @@ seen_wines = set()
 URL = "https://www.systembolaget.se/nytt/om-vara-nyheter/lanseringar/"
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0"
+    "User-Agent": "Mozilla/5.0",
+    "Ocp-Apim-Subscription-Key": "8d39a7340ee7439f8b4c1e995c8f3e4a"
 }
 
 bot = Bot(token=TELEGRAM_TOKEN)
