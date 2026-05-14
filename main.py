@@ -100,7 +100,17 @@ def scan_systembolaget():
 
                 if producer in WATCHLIST:
 
-                    print(f"🍷 MATCH: {producer}")
+                    bot.send_message(
+                        chat_id=CHAT_ID,
+                        text=(
+                            f"🍷 Alfred hittade något intressant\n\n"
+                            f"Producent: {producer}\n"
+                            f"Vin: {wine_name}\n"
+                            f"Årgång: {vintage}\n"
+                            f"Pris: {price} kr\n"
+                            f"Släpp: {launch_date}"
+                        )
+                    )
 
                     print(
                         f"{producer} | "
