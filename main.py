@@ -92,7 +92,11 @@ def scan_systembolaget():
 
                                 print(wine_url)
 
-                                wine_page = requests.get(wine_url, headers=HEADERS, timeout=20)
+                                wine_page = requests.get(
+                                    wine_url, 
+                                    headers=HEADERS, 
+                                    timeout=20
+                                )
 
                                 wine_soup = BeautifulSoup(wine_page.text, "html.parser")
 
@@ -102,7 +106,7 @@ def scan_systembolaget():
 
                                     wine_name = title.text.strip()
 
-                                    print(wine_name)
+                                    print(wine_page.text[:1000])
                      
                      
                      for producer in WATCHLIST:
