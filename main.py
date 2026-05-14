@@ -54,7 +54,8 @@ def scan_systembolaget():
              href = link.get("href")
 
              if href:
-                 print(href)
+                 if "tillfalligt-sortiment" in href or "webblanseringar" in href:
+                     print(href)
 
        
 #        print(html[:5000])
