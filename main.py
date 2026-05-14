@@ -63,7 +63,20 @@ def scan_systembolaget():
                  try:
                      sub_response = requests.get(full_url, timeout=20)
                      sub_html = sub_response.text.lower()
+                     sub_soup = BeautifulSoup(sub_response.text, "html.parser")
+                     wine_links = sub_soup.find_all("a")
+                     
+                     for wine_link in wine_links:
 
+                     wine_href = wine_link.get("href")
+
+                     if wine_href and "/produkt/" in wine_href:
+
+                        wine_url = "https://www.systembolaget.se" + wine_href
+
+                        print(wine_url)
+                     
+                     
                      for producer in WATCHLIST:
 
                         if producer.lower() in sub_html:
