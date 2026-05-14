@@ -189,7 +189,7 @@ def search_wines(search_term):
 # =========================
 # SCHEMA
 # =========================
-schedule.every(3).hours.do(scan_systembolaget)
+schedule.every().day.at("08:00").do(scan_systembolaget)
 print("🍷 Alfreds Vinradar aktiv")
 
 wine_id = f"{producer}-{wine_name}-{vintage}"
