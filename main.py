@@ -47,26 +47,26 @@ bot = Bot(token=TELEGRAM_TOKEN)
 # =========================
 def scan_systembolaget():
 
-    print("🍷 Skannar via API...")
+        print("🍷 Skannar via API...")
 
-    params = {
-        "page": 1,
-        "size": 30,
-        "sortBy": "Score",
-        "sortDirection": "Ascending",
-        "assortmentText": "Tillfälligt sortiment"
-    }
+        params = {
+            "page": 1,
+            "size": 30,
+            "sortBy": "Score",
+            "sortDirection": "Ascending",
+            "assortmentText": "Tillfälligt sortiment"
+        }
 
-    response = requests.get(
-        API_URL,
-        headers=HEADERS,
-        params=params,
-        timeout=20
-    )
+        response = requests.get(
+            API_URL,
+            headers=HEADERS,
+            params=params,
+            timeout=20
+        )
 
-    data = response.json()
+        data = response.json()
 
-    print(data)
+        print(data)
 
     except Exception as e:
         print(f"Fel: {e}")
