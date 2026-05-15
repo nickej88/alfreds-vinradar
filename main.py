@@ -62,9 +62,9 @@ def scan_systembolaget():
         
             params = {
                 "page": page,
-                "size": 30,
+                "size": 100,
                 "sortBy": "Score",
-                "sortDirection": "Ascending",
+                "sortDirection": "Descending",
                 "assortmentText": "Tillfälligt sortiment"
             }
 
