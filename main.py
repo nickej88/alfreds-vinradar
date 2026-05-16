@@ -69,7 +69,7 @@ def scan_systembolaget():
             params = {
                 "page": page,
                 "size": PAGE_SIZE,
-                "sortBy": SORT_SORT_BY,
+                "sortBy": SORT_BY,
                 "sortDirection": SORT_DIRECTION,
                 "assortmentText": ASSORTMENT
             }
