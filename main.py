@@ -44,7 +44,7 @@ def scan_systembolaget():
 
     try:
         first_params = {
-            "page": page,
+            "page": 1,
             "size": PAGE_SIZE,
             "sortBy": SORT_BY,
             "sortDirection": SORT_DIRECTION,
