@@ -19,6 +19,12 @@ WATCHLIST = [
 
 ]
 
+PAGE_SIZE = 100
+SORT_BY = "Score"
+SORT_DIRECTION = "Descending"
+ASSORTMENT = "Tillfälligt sortiment"
+
+
 seen_wines = set()
 
 HEADERS = {
@@ -38,11 +44,11 @@ def scan_systembolaget():
 
     try:
         first_params = {
-            "page": 1,
-            "size": 30,
-            "sortBy": "Score",
-            "sortDirection": "Ascending",
-            "assortmentText": "Tillfälligt sortiment"
+            "page": page,
+            "size": PAGE_SIZE,
+            "sortBy": SORT_BY,
+            "sortDirection": SORT_DIRECTION,
+            "assortmentText": ASSORTMENT,
         }
 
         first_response = requests.get(
@@ -62,10 +68,10 @@ def scan_systembolaget():
         
             params = {
                 "page": page,
-                "size": 100,
-                "sortBy": "Score",
-                "sortDirection": "Descending",
-                "assortmentText": "Tillfälligt sortiment"
+                "size": PAGE_SIZE,
+                "sortBy": SORT_SORT_BY,
+                "sortDirection": SORT_DIRECTION,
+                "assortmentText": ASSORTMENT
             }
 
             response = requests.get(
