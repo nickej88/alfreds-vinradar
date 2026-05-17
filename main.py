@@ -268,6 +268,37 @@ def check_messages():
                 text=result
                 )
 
+            elif text.startswith("/add "):
+
+                search_term = text.replace("/add ", "")
+
+                result = add_watch(search_term)
+
+                bot.send_message(
+                    chat_id=CHAT_ID,
+                    text=result
+            )
+
+            elif text.startswith("/remove "):
+
+                search_term = text.replace("/remove ", "")
+
+                result = remove_watch(search_term)
+
+                bot.send_message(
+                    chat_id=CHAT_ID,
+                    text=result
+                )
+
+            elif text == "/watchlist":
+
+                result = show_watchlist()
+
+                bot.send_message(
+                    chat_id=CHAT_ID,
+                    text=result
+                )
+            
             elif text.lower() == "vin":
                bot.send_message(
                chat_id=CHAT_ID,
@@ -282,38 +313,6 @@ def check_messages():
                chat_id=CHAT_ID,
                text=f"Jag förstår inte kommandot: {text}"
                )
-
-    elif text.startswith("/add "):
-
-        search_term = text.replace("/add ", "")
-
-        result = add_watch(search_term)
-
-        bot.send_message(
-            chat_id=CHAT_ID,
-            text=result
-        )
-
-    elif text.startswith("/remove "):
-
-        search_term = text.replace("/remove ", "")
-
-        result = remove_watch(search_term)
-
-        bot.send_message(
-            chat_id=CHAT_ID,
-            text=result
-        )
-
-    elif text == "/watchlist":
-
-        result = show_watchlist()
-
-        bot.send_message(
-            chat_id=CHAT_ID,
-            text=result
-        )
-
 
 time.sleep(15)
 
