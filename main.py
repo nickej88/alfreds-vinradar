@@ -145,35 +145,35 @@ def scan_systembolaget():
 def search_wines(search_term):
 
 
-    def add_watch(search_term):
+def add_watch(search_term):
 
-        if search_term not in WATCHLIST:
-            WATCHLIST.append(search_term)
-            return f"🍷 Tillagd i watchlist: {search_term}"
+    if search_term not in WATCHLIST:
+        WATCHLIST.append(search_term)
+        return f"🍷 Tillagd i watchlist: {search_term}"
 
-        return f"🍷 {search_term} finns redan i watchlist."
+    return f"🍷 {search_term} finns redan i watchlist."
 
 
-    def remove_watch(search_term):
+def remove_watch(search_term):
 
-        if search_term in WATCHLIST:
-            WATCHLIST.remove(search_term)
-            return f"🍷 Borttagen från watchlist: {search_term}"
+    if search_term in WATCHLIST:
+        WATCHLIST.remove(search_term)
+        return f"🍷 Borttagen från watchlist: {search_term}"
             
-        return f"🍷 Hittade inte {search_term} i watchlist."
+    return f"🍷 Hittade inte {search_term} i watchlist."
 
 
-    def show_watchlist():
+def show_watchlist():
 
-        if not WATCHLIST:
-            return "🍷 Watchlist är tom, sir."
+    if not WATCHLIST:
+        return "🍷 Watchlist är tom, sir."
 
-        message = "🍷 Watchlist:\n\n"
+    message = "🍷 Watchlist:\n\n"
 
-        for watch in WATCHLIST:
-            message += f"• {watch}\n"
+    for watch in WATCHLIST:
+        message += f"• {watch}\n"
 
-        return message
+    return message
 
     
     
