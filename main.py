@@ -300,7 +300,7 @@ def check_messages():
                )
 
             elif text.lower() == "scan":
-               #scan_systembolaget()
+               scan_systembolaget()
 
             else:
                bot.send_message(
