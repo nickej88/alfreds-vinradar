@@ -172,7 +172,7 @@ def show_watchlist():
 
     return message
 
- def search_wines(search_term):   
+def search_wines(search_term):   
  
     params = {
         "page": 1,
