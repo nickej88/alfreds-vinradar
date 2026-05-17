@@ -142,9 +142,6 @@ def scan_systembolaget():
         print(f"Fel: {e}")
 
 
-def search_wines(search_term):
-
-
 def add_watch(search_term):
 
     if search_term not in WATCHLIST:
@@ -175,9 +172,8 @@ def show_watchlist():
 
     return message
 
-    
-    
-    
+ def search_wines(search_term):   
+ 
     params = {
         "page": 1,
         "size": 10,
@@ -232,8 +228,6 @@ def show_watchlist():
 
     except Exception as e:
         return f"Fel vid sökning: {e}"
-
-
 
 
 
