@@ -19,7 +19,7 @@ WATCHLIST = [
 
 ]
 
-PAGE_SIZE = 100
+PAGE_SIZE = 30
 SORT_BY = "Score"
 SORT_DIRECTION = "Descending"
 ASSORTMENT = "Tillfälligt sortiment"
@@ -145,6 +145,39 @@ def scan_systembolaget():
 def search_wines(search_term):
 
 
+    def add_watch(search_term):
+
+        if search_term not in WATCHLIST:
+            WATCHLIST.append(search_term)
+            return f"🍷 Tillagd i watchlist: {search_term}"
+
+        return f"🍷 {search_term} finns redan i watchlist."
+
+
+    def remove_watch(search_term):
+
+        if search_term in WATCHLIST:
+            WATCHLIST.remove(search_term)
+            return f"🍷 Borttagen från watchlist: {search_term}"
+            
+        return f"🍷 Hittade inte {search_term} i watchlist."
+
+
+    def show_watchlist():
+
+        if not WATCHLIST:
+            return "🍷 Watchlist är tom, sir."
+
+        message = "🍷 Watchlist:\n\n"
+
+        for watch in WATCHLIST:
+            message += f"• {watch}\n"
+
+        return message
+
+    
+    
+    
     params = {
         "page": 1,
         "size": 10,
@@ -249,6 +282,39 @@ def check_messages():
                chat_id=CHAT_ID,
                text=f"Jag förstår inte kommandot: {text}"
                )
+
+    elif text.startswith("/add "):
+
+        search_term = text.replace("/add ", "")
+
+        result = add_watch(search_term)
+
+        bot.send_message(
+            chat_id=CHAT_ID,
+            text=result
+        )
+
+    elif text.startswith("/remove "):
+
+        search_term = text.replace("/remove ", "")
+
+        result = remove_watch(search_term)
+
+        bot.send_message(
+            chat_id=CHAT_ID,
+            text=result
+        )
+
+    elif text == "/watchlist":
+
+        result = show_watchlist()
+
+        bot.send_message(
+            chat_id=CHAT_ID,
+            text=result
+        )
+
+
 time.sleep(15)
 
 scan_systembolaget()
