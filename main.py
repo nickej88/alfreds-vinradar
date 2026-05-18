@@ -34,11 +34,6 @@ HEADERS = {
 }
 
 
-load_watchlist()
-
-bot = Bot(token=TELEGRAM_TOKEN)
-bot.delete_webhook(drop_pending_updates=True)
-
 # =========================
 # HUVUDFUNKTION
 # =========================
@@ -255,6 +250,12 @@ def search_wines(search_term):
 
 
 
+load_watchlist()
+
+bot = Bot(token=TELEGRAM_TOKEN)
+bot.delete_webhook(drop_pending_updates=True)
+
+
 # =========================
 # SCHEMA
 # =========================
@@ -295,7 +296,7 @@ def check_messages():
                 bot.send_message(
                     chat_id=CHAT_ID,
                     text=result
-            )
+                )
 
             elif text.startswith("/remove "):
 
