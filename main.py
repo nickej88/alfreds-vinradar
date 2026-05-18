@@ -3,6 +3,7 @@ import requests
 import schedule
 import time
 from telegram import Bot
+import json
 
 # =========================
 # KONFIGURATION
@@ -31,6 +32,9 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0",
     "Ocp-Apim-Subscription-Key": API_KEY
 }
+
+
+load_watchlist()
 
 bot = Bot(token=TELEGRAM_TOKEN)
 bot.delete_webhook(drop_pending_updates=True)
@@ -146,6 +150,7 @@ def add_watch(search_term):
 
     if search_term not in WATCHLIST:
         WATCHLIST.append(search_term)
+        save_watchlist()
         return f"🍷 Tillagd i watchlist: {search_term}"
 
     return f"🍷 {search_term} finns redan i watchlist."
@@ -155,6 +160,7 @@ def remove_watch(search_term):
 
     if search_term in WATCHLIST:
         WATCHLIST.remove(search_term)
+        save_watchlist()
         return f"🍷 Borttagen från watchlist: {search_term}"
             
     return f"🍷 Hittade inte {search_term} i watchlist."
@@ -171,6 +177,24 @@ def show_watchlist():
         message += f"• {watch}\n"
 
     return message
+
+def save_watchlist():
+
+    with open("watchlist.json", "w") as file:
+        json.dump(WATCHLIST, file)
+
+def load_watchlist():
+
+    global WATCHLIST
+
+    try:
+
+        with open("watchlist.json", "r") as file:
+            WATCHLIST = json.load(file)
+
+    except FileNotFoundError:
+
+        save_watchlist()
 
 def search_wines(search_term):   
  
