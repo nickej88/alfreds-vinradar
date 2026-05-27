@@ -90,6 +90,12 @@ def scan_systembolaget():
 
                 category = product.get("categoryLevel1")
 
+                if product.get("isDiscontinued"):
+                    continue
+
+                if product.get("isCompletelyOutOfStock"):
+                    continue
+
                 if category != "Vin":
                     continue
 
@@ -222,6 +228,12 @@ def search_wines(search_term):
         for product in products:
 
             category = product.get("categoryLevel1")
+
+            if product.get("isDiscontinued"):
+                continue
+
+            if product.get("isCompletelyOutOfStock"):
+                continue
 
             if category != "Vin":
                 continue
