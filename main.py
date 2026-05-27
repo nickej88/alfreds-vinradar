@@ -147,6 +147,14 @@ def scan_systembolaget():
                         watch_value in wine_name.lower()
                     ):
 
+                    elif (
+                        watch_type == "region"
+                        and
+                        origin_level_2
+                        and
+                        watch_value in origin_level_2.lower()
+                    ):
+                    
                         wine_id = f"{producer}-{wine_name}-{vintage}"
 
                         if wine_id in seen_wines:
