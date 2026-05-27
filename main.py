@@ -174,7 +174,7 @@ def scan_systembolaget():
                             f"{launch_date}"
                         )
                     
-            time.sleep(1)
+            time.sleep(0.2)
     
     except Exception as e:
         print(f"Fel: {e}")
@@ -402,11 +402,11 @@ def check_messages():
                text=f"Jag förstår inte kommandot: {text}"
                )
 
-time.sleep(15)
+#time.sleep(5)
 
 #scan_systembolaget()
 
 while True:
     schedule.run_pending()
     check_messages()
-    time.sleep(15)
+    time.sleep(5)
