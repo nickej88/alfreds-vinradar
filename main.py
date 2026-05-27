@@ -287,6 +287,8 @@ def search_wines(search_term):
 
         for product in products:
 
+            print(product.keys())
+            
             category = product.get("categoryLevel1")
 
             if product.get("isDiscontinued"):
