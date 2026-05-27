@@ -25,6 +25,11 @@ SORT_BY = "Score"
 SORT_DIRECTION = "Descending"
 ASSORTMENT = "Tillfälligt sortiment"
 
+WINE_CATEGORY = "Vin"
+
+SEARCH_SIZE = 10
+SEARCH_SORT_DIRECTION = "Ascending"
+
 
 seen_wines = set()
 
@@ -96,7 +101,7 @@ def scan_systembolaget():
                 if product.get("isCompletelyOutOfStock"):
                     continue
 
-                if category != "Vin":
+                if category != WINE_CATEGORY:
                     continue
 
                 producer = product.get("producerName", "Okänd producent")
@@ -203,9 +208,9 @@ def search_wines(search_term):
  
     params = {
         "page": 1,
-        "size": 10,
+        "size": SEARCH_SIZE,
         "sortBy": "Score",
-        "sortDirection": "Ascending",
+        "sortDirection": SEARCH_SORT_DIRECTION,
         "textQuery": search_term
     }
 
@@ -237,7 +242,7 @@ def search_wines(search_term):
             if product.get("isCompletelyOutOfStock"):
                 continue
 
-            if category != "Vin":
+            if category != WINE_CATEGORY:
                 continue
 
             producer = product.get("producerName", "Okänd producent")
