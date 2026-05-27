@@ -147,7 +147,7 @@ def scan_systembolaget():
                         watch_value in wine_name.lower()
                     ):
 
-                         wine_id = f"{producer}-{wine_name}-{vintage}"
+                        wine_id = f"{producer}-{wine_name}-{vintage}"
 
                         if wine_id in seen_wines:
                             continue
