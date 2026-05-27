@@ -302,13 +302,6 @@ def search_wines(search_term):
             if category != WINE_CATEGORY:
                 continue
 
-            #Temp!!
-            print(
-                f"{wine_name} | "
-                f"{origin_level_1} | "
-                f"{origin_level_2}"
-            )  
-
             producer = product.get("producerName", "Okänd producent")
             wine_name = product.get("productNameBold")
             vintage = product.get("vintage") or "NV"
@@ -317,9 +310,16 @@ def search_wines(search_term):
             product_url = (
             "https://www.systembolaget.se/sortiment/?q="
             f"{product_number}"
+                
             origin_level_1 = product.get("originLevel1")
             origin_level_2 = product.get("originLevel2")
             )
+
+            print(
+                f"{wine_name} | "
+                f"{origin_level_1} | "
+                f"{origin_level_2}"
+            )  
     
             message += (
                 f"🍷 {wine_name} {vintage}\n"
