@@ -210,7 +210,14 @@ def show_watchlist():
     message = "🍷 Watchlist:\n\n"
 
     for watch in WATCHLIST:
-        message += f"• {watch}\n"
+
+        watch_type, watch_value = watch.split(":")
+
+        if watch_type == "producer":
+            message += f"🍷 Producent: {watch_value}\n"
+
+        elif watch_type == "wine":
+            message += f"🍷 Vin: {watch_value}\n"
 
     return message
 
