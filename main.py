@@ -125,6 +125,7 @@ def scan_systembolaget():
                             continue
 
                         seen_wines.add(wine_id)
+                        save_seen_wines()
                     
                         bot.send_message(
                             chat_id=CHAT_ID,
@@ -188,10 +189,28 @@ def show_watchlist():
 
 def save_watchlist():
 
+    def load_seen_wines():
+
+    global seen_wines
+
+    try:
+
+        with open("seen_wines.json", "r") as file:
+            seen_wines = set(json.load(file))
+
+    except FileNotFoundError:
+
+        save_seen_wines()
+
     with open("watchlist.json", "w") as file:
         json.dump(WATCHLIST, file)
 
 def load_watchlist():
+
+    def save_seen_wines():
+
+        with open("seen_wines.json", "w") as file:
+            json.dump(list(seen_wines), file)
 
     global WATCHLIST
 
@@ -270,6 +289,7 @@ def search_wines(search_term):
 
 
 load_watchlist()
+load_seen_wines()
 
 bot = Bot(token=TELEGRAM_TOKEN)
 bot.delete_webhook(drop_pending_updates=True)
