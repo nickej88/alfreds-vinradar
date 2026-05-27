@@ -248,6 +248,9 @@ def show_watchlist():
         elif watch_type == "wine":
             message += f"🍷 Vin: {watch_value}\n"
 
+        elif watch_type == "region":
+            message += f"🍷 Region: {watch_value}\n"
+
     return message
 
 def save_watchlist():
