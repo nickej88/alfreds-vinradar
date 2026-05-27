@@ -286,13 +286,7 @@ def search_wines(search_term):
 
         message = "🍷 Alfred hittade:\n\n"
 
-        for product in products:
-
-            print(
-                f"{wine_name} | "
-                f"{origin_level_1} | "
-                f"{origin_level_2}"
-            )    
+        for product in products:  
             
             category = product.get("categoryLevel1")
 
@@ -307,6 +301,13 @@ def search_wines(search_term):
 
             if category != WINE_CATEGORY:
                 continue
+
+            #Temp!!
+            print(
+                f"{wine_name} | "
+                f"{origin_level_1} | "
+                f"{origin_level_2}"
+            )  
 
             producer = product.get("producerName", "Okänd producent")
             wine_name = product.get("productNameBold")
