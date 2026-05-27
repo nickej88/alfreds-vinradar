@@ -377,7 +377,7 @@ def check_messages():
 
 time.sleep(15)
 
-scan_systembolaget()
+#scan_systembolaget()
 
 while True:
     schedule.run_pending()
