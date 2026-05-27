@@ -307,13 +307,10 @@ def search_wines(search_term):
             vintage = product.get("vintage") or "NV"
             price = product.get("price")
             product_number = product["productNumber"]
-            product_url = (
-            "https://www.systembolaget.se/sortiment/?q="
-            f"{product_number}"
-                
+            product_url = f"https://www.systembolaget.se/sortiment/?q={product_number}"    
             origin_level_1 = product.get("originLevel1")
             origin_level_2 = product.get("originLevel2")
-            )
+            
 
             print(
                 f"{wine_name} | "
