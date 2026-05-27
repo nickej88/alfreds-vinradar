@@ -30,8 +30,6 @@ SEARCH_SIZE = 50
 SEARCH_SORT_DIRECTION = "Ascending"
 
 
-origin_level_1 = product.get("originLevel1")
-origin_level_2 = product.get("originLevel2")
 
 seen_wines = set()
 
@@ -318,6 +316,8 @@ def search_wines(search_term):
             product_url = (
             "https://www.systembolaget.se/sortiment/?q="
             f"{product_number}"
+            origin_level_1 = product.get("originLevel1")
+            origin_level_2 = product.get("originLevel2")
             )
     
             message += (
