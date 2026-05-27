@@ -145,6 +145,26 @@ def scan_systembolaget():
                         watch_value in wine_name.lower()
                     ):
 
+                         wine_id = f"{producer}-{wine_name}-{vintage}"
+
+                        if wine_id in seen_wines:
+                            continue
+
+                        seen_wines.add(wine_id)
+                        save_seen_wines()
+
+                        bot.send_message(
+                            chat_id=CHAT_ID,
+                            text=(
+                                f"🍷 Alfred hittade något intressant\n\n"
+                                f"Producent: {producer}\n"
+                                f"Vin: {wine_name}\n"
+                                f"Årgång: {vintage}\n"
+                                f"Pris: {price} kr\n"
+                                f"Släpp: {launch_date}"
+                            )
+                        )
+                  
                     elif (
                         watch_type == "region"
                         and
