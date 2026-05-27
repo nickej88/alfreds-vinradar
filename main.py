@@ -354,7 +354,7 @@ def search_wines(search_term):
             )  
     
             message += (
-                f"🍷 {wine_name} {vintage}\n"
+                f"🍷 {producer}, {wine_name} | {vintage}\n"
                 f"🌍 {origin_level_1} - {origin_level_2}\n"
                 f"{price} kr\n"
                 f"🔗 {product_url}\n\n"
