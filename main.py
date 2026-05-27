@@ -189,28 +189,10 @@ def show_watchlist():
 
 def save_watchlist():
 
-    def load_seen_wines():
-
-    global seen_wines
-
-    try:
-
-        with open("seen_wines.json", "r") as file:
-            seen_wines = set(json.load(file))
-
-    except FileNotFoundError:
-
-        save_seen_wines()
-
     with open("watchlist.json", "w") as file:
-        json.dump(WATCHLIST, file)
+        json.dump(WATCHLIST, file)  
 
 def load_watchlist():
-
-    def save_seen_wines():
-
-        with open("seen_wines.json", "w") as file:
-            json.dump(list(seen_wines), file)
 
     global WATCHLIST
 
@@ -222,6 +204,24 @@ def load_watchlist():
     except FileNotFoundError:
 
         save_watchlist()
+
+def save_seen_wines():
+
+        with open("seen_wines.json", "w") as file:
+            json.dump(list(seen_wines), file)
+
+def load_seen_wines():
+
+    global seen_wines
+
+    try:
+
+        with open("seen_wines.json", "r") as file:
+            seen_wines = set(json.load(file))
+
+    except FileNotFoundError:
+
+        save_seen_wines()
 
 def search_wines(search_term):   
  
