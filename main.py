@@ -109,9 +109,9 @@ def scan_systembolaget():
                 for watch in WATCHLIST:
 
                     if (
-                        watch.lower() in producer.lower()
+                        watch in producer.lower()
                         or
-                        watch.lower() in wine_name.lower()
+                        watch in wine_name.lower()
                     ):
                     
                         wine_id = f"{producer}-{wine_name}-{vintage}"
@@ -150,7 +150,7 @@ def scan_systembolaget():
 def add_watch(search_term):
 
     if search_term not in WATCHLIST:
-        WATCHLIST.append(search_term)
+        WATCHLIST.append(search_term.lower())
         save_watchlist()
         return f"🍷 Tillagd i watchlist: {search_term}"
 
@@ -159,6 +159,8 @@ def add_watch(search_term):
 
 def remove_watch(search_term):
 
+    search_term = search_term.lower()
+    
     if search_term in WATCHLIST:
         WATCHLIST.remove(search_term)
         save_watchlist()
