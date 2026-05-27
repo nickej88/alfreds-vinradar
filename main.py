@@ -261,6 +261,9 @@ def search_wines(search_term):
             if product.get("isCompletelyOutOfStock"):
                 continue
 
+            if product.get("isBsAssortment"):
+                continue
+
             if category != WINE_CATEGORY:
                 continue
 
