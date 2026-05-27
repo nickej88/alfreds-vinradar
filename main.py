@@ -30,6 +30,9 @@ SEARCH_SIZE = 50
 SEARCH_SORT_DIRECTION = "Ascending"
 
 
+origin_level_1 = product.get("originLevel1")
+origin_level_2 = product.get("originLevel2")
+
 seen_wines = set()
 
 HEADERS = {
@@ -258,7 +261,7 @@ def load_seen_wines():
         save_seen_wines()
 
 def search_wines(search_term):   
- 
+    
     params = {
         "page": 1,
         "size": SEARCH_SIZE,
@@ -287,7 +290,11 @@ def search_wines(search_term):
 
         for product in products:
 
-            print(product.keys())
+            print(
+                f"{wine_name} | "
+                f"{origin_level_1} | "
+                f"{origin_level_2}"
+            )    
             
             category = product.get("categoryLevel1")
 
