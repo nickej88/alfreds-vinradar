@@ -106,6 +106,8 @@ def scan_systembolaget():
                 wine_name = product["productNameBold"]
                 vintage = product.get("vintage") or "NV"
                 price = product["price"]
+                origin_level_1 = product.get("originLevel1")
+                origin_level_2 = product.get("originLevel2")
                 launch_date = product["productLaunchDate"]
                 launch_date = launch_date.split("T")[0]
 
