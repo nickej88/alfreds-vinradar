@@ -15,9 +15,7 @@ API_KEY = os.getenv("SB_API_KEY")
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-WATCHLIST = [
-
-]
+WATCHLIST = []
 
 PAGE_SIZE = 30
 SORT_BY = "Score"
@@ -232,6 +230,8 @@ def show_watchlist():
 
 def save_watchlist():
 
+    print(WATCHLIST)
+    
     with open("watchlist.json", "w") as file:
         json.dump(WATCHLIST, file)  
 
@@ -244,6 +244,8 @@ def load_watchlist():
         with open("watchlist.json", "r") as file:
             WATCHLIST = json.load(file)
 
+    print(WATCHLIST)
+    
     except FileNotFoundError:
 
         save_watchlist()
