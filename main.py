@@ -347,9 +347,9 @@ def scan_systembolaget():
 
 def scan_local_products():
 
-    products = load_products()
+products = load_products_sql()
 
-    print(f"🍷 Lokal scan: {len(products)} produkter")
+print(f"🍷 Lokal SQL-scan: {len(products)} produkter")
 
 
 def load_products():
@@ -370,6 +370,22 @@ def save_products(products):
 
     print("🍷 Products sparade")
 
+def load_products_sql():
+
+    cursor.execute("""
+    SELECT
+        producer,
+        wine,
+        vintage,
+        price,
+        country,
+        region,
+        grape,
+        style
+    FROM products
+    """)
+
+    return cursor.fetchall()
 
 def load_watchlist_sql():
 
@@ -665,7 +681,7 @@ time.sleep(5)
 #scan_systembolaget()
 scan_local_products()
 
-loaded_products = load_products()
+loaded_products = load_products_sql()
 
 print(f"🍷 Loaded products: {len(loaded_products)}")
 
