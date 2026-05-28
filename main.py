@@ -89,6 +89,7 @@ def scan_systembolaget():
             print(f"🍷 Sida {page}")
             
             products = data["products"]
+            save_products(products)
 
             for product in products:
 
@@ -129,7 +130,7 @@ def scan_systembolaget():
                         watch_value in producer.lower()
                     ):
 
-                        wine_id = f"{producer}-{wine_name}-{vintage}"
+                        wine_id = f"{producer}-{wine}-{vintage}"
 
                         if wine_id in seen_wines:
                             continue
@@ -142,7 +143,7 @@ def scan_systembolaget():
                             text=(
                                 f"🍷 Alfred hittade något intressant\n\n"
                                 f"Producent: {producer}\n"
-                                f"Vin: {wine_name}\n"
+                                f"Vin: {wine}\n"
                                 f"Årgång: {vintage}\n"
                                 f"Pris: {price} kr\n"
                                 f"Släpp: {launch_date}"
@@ -178,7 +179,7 @@ def scan_systembolaget():
                     elif (
                         watch_type == "region"
                         and
-                        origin_level_2
+                        region
                         and
                         watch_value in region.lower()
                     ):
@@ -234,7 +235,7 @@ def scan_systembolaget():
                     elif (
                         watch_type == "grape"
                         and
-                        grapes
+                        grape
                         and
                         watch_value in grape.lower()
                         ):
@@ -262,7 +263,7 @@ def scan_systembolaget():
                     elif (
                         watch_type == "style"
                         and
-                        category_2
+                        style
                         and
                         watch_value in style.lower()
                     ):
@@ -288,7 +289,7 @@ def scan_systembolaget():
                         )
 
                     
-                        wine_id = f"{producer}-{wine_name}-{vintage}"
+                        wine_id = f"{producer}-{wine}-{vintage}"
 
                         if wine_id in seen_wines:
                             continue
@@ -301,7 +302,7 @@ def scan_systembolaget():
                             text=(
                                 f"🍷 Alfred hittade något intressant\n\n"
                                 f"Producent: {producer}\n"
-                                f"Vin: {wine_name}\n"
+                                f"Vin: {wine}\n"
                                 f"Årgång: {vintage}\n"
                                 f"Pris: {price} kr\n"
                                 f"Släpp: {launch_date}"
@@ -310,7 +311,7 @@ def scan_systembolaget():
 
                         print(
                             f"{producer} | "
-                            f"{wine_name} | "
+                            f"{wine} | "
                             f"{vintage} | "
                             f"{price} kr | "
                             f"{launch_date}"
@@ -455,7 +456,6 @@ def search_wines(search_term):
         data = response.json()
 
         products = data["products"]
-        save_products(products)
 
         if not products:
             return "🍷 Alfred hittade inget, sir."
@@ -493,14 +493,14 @@ def search_wines(search_term):
             
 
             #     print(
-            #        f"{wine_name} | "
-            #        f"{category_2} | "
+            #        f"{wine} | "
+            #        f"{style} | "
             #        f"{category_3}"
             #    )
     
             message += (
-                f"🍷 {producer}, {wine_name} | {vintage}\n"
-                f"🌍 {origin_level_1} - {origin_level_2}\n"
+                f"🍷 {producer}, {wine} | {vintage}\n"
+                f"🌍 {origin_level_1} - {region}\n"
                 f"{price} kr\n"
                 f"🔗 {product_url}\n\n"
                 
