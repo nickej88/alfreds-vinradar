@@ -102,16 +102,23 @@ def scan_systembolaget():
 
                 if category != WINE_CATEGORY:
                     continue
-
-                producer = product.get("producerName", "Okänd producent")
-                wine_name = product["productNameBold"]
-                vintage = product.get("vintage") or "NV"
-                price = product["price"]
-                origin_level_1 = product.get("originLevel1")
-                origin_level_2 = product.get("originLevel2")
+       
                 launch_date = product["productLaunchDate"]
                 launch_date = launch_date.split("T")[0]
 
+                producer = product.get("producerName", "Okänd producent")
+                wine = product.get("productNameBold")
+                vintage = product.get("vintage") or "NV"
+                price = product.get("price")
+                product_number = product["productNumber"]
+                product_url = f"https://www.systembolaget.se/sortiment/?q={product_number}"    
+                origin_level_1 = product.get("originLevel1")
+                region = product.get("originLevel2")
+                style = product.get("categoryLevel2")
+                profile = product.get("categoryLevel3")
+                country = product.get("country")
+                grape = product.get("grapes")
+                
                 for watch in WATCHLIST:
 
                     watch_type, watch_value = watch.split(":")
@@ -145,10 +152,10 @@ def scan_systembolaget():
                     elif (
                         watch_type == "wine"
                         and
-                        watch_value in wine_name.lower()
+                        watch_value in wine.lower()
                     ):
 
-                        wine_id = f"{producer}-{wine_name}-{vintage}"
+                        wine_id = f"{producer}-{wine}-{vintage}"
 
                         if wine_id in seen_wines:
                             continue
@@ -161,7 +168,7 @@ def scan_systembolaget():
                             text=(
                                 f"🍷 Alfred hittade något intressant\n\n"
                                 f"Producent: {producer}\n"
-                                f"Vin: {wine_name}\n"
+                                f"Vin: {wine}\n"
                                 f"Årgång: {vintage}\n"
                                 f"Pris: {price} kr\n"
                                 f"Släpp: {launch_date}"
@@ -175,7 +182,32 @@ def scan_systembolaget():
                         and
                         watch_value in origin_level_2.lower()
                     ):
-                    
+
+                    elif (
+                        watch_type == "country"
+                        and
+                        country
+                        and
+                        watch_value in country.lower()
+                    ):
+
+                    elif (
+                        watch_type == "grape"
+                        and
+                        grapes
+                        and
+                        watch_value in grapes.lower()
+                        ):
+
+                    elif (
+                        watch_type == "style"
+                        and
+                        category_2
+                        and
+                        watch_value in category_2.lower()
+                    ):
+
+                        
                         wine_id = f"{producer}-{wine_name}-{vintage}"
 
                         if wine_id in seen_wines:
@@ -252,6 +284,15 @@ def show_watchlist():
         elif watch_type == "region":
             message += f"🍷 Region: {watch_value}\n"
 
+        elif watch_type == "country":
+            message += f"🌍 Land: {watch_value}\n"
+
+        elif watch_type == "grape":
+            message += f"🍇 Druva: {watch_value}\n"
+
+        elif watch_type == "style":
+            message += f"🍷 Stil: {watch_value}\n"
+        
     return message
 
 def save_watchlist():
