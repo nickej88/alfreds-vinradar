@@ -337,7 +337,8 @@ def save_products(products):
     with open("products.json", "w") as file:
         json.dump(products, file)
 
-
+    print("🍷 Products sparade")
+    
 def add_watch(search_term):
 
     if search_term not in WATCHLIST:
@@ -606,9 +607,9 @@ def check_messages():
                text=f"Jag förstår inte kommandot: {text}"
                )
 
-#time.sleep(5)
+time.sleep(5)
 
-#scan_systembolaget()
+scan_systembolaget()
 
 while True:
     schedule.run_pending()
