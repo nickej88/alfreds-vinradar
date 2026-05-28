@@ -296,6 +296,14 @@ def scan_systembolaget():
     except Exception as e:
         print(f"Fel: {e}")
 
+
+def scan_local_products():
+
+    products = load_products()
+
+    print(f"🍷 Lokal scan: {len(products)} produkter")
+
+
 def load_products():
 
     try:
@@ -583,7 +591,8 @@ def check_messages():
 
 time.sleep(5)
 
-scan_systembolaget()
+#scan_systembolaget()
+scan_local_products()
 
 loaded_products = load_products()
 
