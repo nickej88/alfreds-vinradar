@@ -56,6 +56,20 @@ CREATE TABLE IF NOT EXISTS seen_wines (
 )
 """)
 
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    producer TEXT,
+    wine TEXT,
+    vintage TEXT,
+    price REAL,
+    country TEXT,
+    region TEXT,
+    grape TEXT,
+    style TEXT
+)
+""")
+
 cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
 print(cursor.fetchall())
 
@@ -146,6 +160,17 @@ def scan_systembolaget():
                 profile = product.get("categoryLevel3")
                 country = product.get("country")
                 grape = product.get("grapes")
+
+                save_product_sql(
+                    producer,
+                    wine,
+                    vintage,
+                    price,
+                    country,
+                    region,
+                    grape,
+                    style
+                )
 
                 watchlist = load_watchlist_sql()
                 
@@ -390,6 +415,42 @@ def save_seen_wine(wine_id):
     )
     VALUES (?)
     """, (wine_id,))
+
+    connection.commit()
+
+def save_product_sql(
+    producer,
+    wine,
+    vintage,
+    price,
+    country,
+    region,
+    grape,
+    style
+):
+
+    cursor.execute("""
+    INSERT INTO products (
+        producer,
+        wine,
+        vintage,
+        price,
+        country,
+        region,
+        grape,
+        style
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    """, (
+        producer,
+        wine,
+        vintage,
+        price,
+        country,
+        region,
+        grape,
+        style
+    ))
 
     connection.commit()
 
