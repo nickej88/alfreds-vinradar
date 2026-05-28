@@ -343,7 +343,22 @@ def save_products(products):
         json.dump(products, file)
 
     print("🍷 Products sparade")
-    
+
+
+def load_watchlist_sql():
+
+    cursor.execute("""
+    SELECT watch_type, watch_value
+    FROM watchlist
+    """)
+
+    rows = cursor.fetchall()
+
+    return [
+        f"{watch_type}:{watch_value}"
+        for watch_type, watch_value in rows
+    ]
+
 def add_watch(search_term):
 
     if search_term not in WATCHLIST:
@@ -476,8 +491,8 @@ def search_wines(search_term):
             if product.get("isCompletelyOutOfStock"):
                 continue
 
-            if product.get("isBsAssortment"):
-                continue
+            #if product.get("isBsAssortment"):
+            #    continue
 
             if category != WINE_CATEGORY:
                 continue
@@ -617,7 +632,7 @@ time.sleep(5)
 scan_local_products()
 
 loaded_products = load_products()
-
+print(load_watchlist_sql())
 print(f"🍷 Loaded products: {len(loaded_products)}")
 
 while True:
