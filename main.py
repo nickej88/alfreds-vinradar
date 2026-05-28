@@ -146,6 +146,8 @@ def scan_systembolaget():
                 profile = product.get("categoryLevel3")
                 country = product.get("country")
                 grape = product.get("grapes")
+
+                watchlist = load_watchlist_sql()
                 
                 for watch in watchlist:
 
@@ -393,7 +395,7 @@ def save_seen_wine(wine_id):
 
 def show_watchlist():
 
-    watchlist = load_watchlist_sql()
+    for watch in watchlist:
 
     if not watchlist:
         return "🍷 Watchlist är tom, sir."
@@ -560,16 +562,16 @@ def check_messages():
                     text=result
                 )
 
-            elif text.startswith("/remove "):
-
-                search_term = text.replace("/remove ", "")
-
-                result = remove_watch(search_term)
-
-                bot.send_message(
-                    chat_id=CHAT_ID,
-                    text=result
-                )
+            #elif text.startswith("/remove "):
+            #    
+            #    search_term = text.replace("/remove ", "")
+            #
+            #      result = remove_watch(search_term)
+            #
+            #   bot.send_message(
+            #       chat_id=CHAT_ID,
+            #        text=result
+            #    )
 
             elif text == "/watchlist":
 
