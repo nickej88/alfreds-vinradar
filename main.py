@@ -51,6 +51,13 @@ CREATE TABLE IF NOT EXISTS watchlist (
 )
 """)
 
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS seen_wines (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    wine_id TEXT UNIQUE
+)
+""")
+
 cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
 print(cursor.fetchall())
 
@@ -368,6 +375,27 @@ def add_watch_sql(search_term):
     )
     VALUES (?, ?)
     """, (watch_type, watch_value))
+
+    connection.commit()
+
+def wine_seen(wine_id):
+
+    cursor.execute("""
+    SELECT wine_id
+    FROM seen_wines
+    WHERE wine_id = ?
+    """, (wine_id,))
+
+    return cursor.fetchone() is not None
+
+def save_seen_wine(wine_id):
+
+    cursor.execute("""
+    INSERT OR IGNORE INTO seen_wines (
+        wine_id
+    )
+    VALUES (?)
+    """, (wine_id,))
 
     connection.commit()
 
