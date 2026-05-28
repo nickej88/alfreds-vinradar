@@ -180,7 +180,7 @@ def scan_systembolaget():
                         and
                         origin_level_2
                         and
-                        watch_value in origin_level_2.lower()
+                        watch_value in region.lower()
                     ):
 
                         wine_id = f"{producer}-{wine}-{vintage}"
@@ -236,10 +236,10 @@ def scan_systembolaget():
                         and
                         grapes
                         and
-                        watch_value in grapes.lower()
+                        watch_value in grape.lower()
                         ):
 
-                            wine_id = f"{producer}-{wine}-{vintage}"
+                        wine_id = f"{producer}-{wine}-{vintage}"
 
                         if wine_id in seen_wines:
                             continue
@@ -264,7 +264,7 @@ def scan_systembolaget():
                         and
                         category_2
                         and
-                        watch_value in category_2.lower()
+                        watch_value in style.lower()
                     ):
 
                         wine_id = f"{producer}-{wine}-{vintage}"
