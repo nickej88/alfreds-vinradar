@@ -3,6 +3,7 @@ import requests
 import schedule
 import time
 from telegram import Bot
+import telegram.error
 import json
 
 # =========================
@@ -389,7 +390,17 @@ LAST_UPDATE_ID = None
 def check_messages():
     global LAST_UPDATE_ID
 
-    updates = bot.get_updates(offset=LAST_UPDATE_ID, timeout=10)
+    try:
+
+        updates = bot.get_updates(
+            offset=LAST_UPDATE_ID,
+            timeout=10
+        )
+
+    except telegram.error.Conflict:
+
+        print("⚠️ Annan bot-instans kör redan")
+        return
 
     for update in updates:
         LAST_UPDATE_ID = update.update_id + 1
