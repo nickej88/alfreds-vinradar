@@ -160,7 +160,9 @@ def scan_systembolaget():
                 profile = product.get("categoryLevel3")
                 country = product.get("country")
                 grape = product.get("grapes")
-
+                if isinstance(grape, list):
+                    grape = ", ".join(grape)
+                    
                 save_product_sql(
                     producer,
                     wine,
