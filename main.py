@@ -5,6 +5,7 @@ import time
 from telegram import Bot
 import telegram.error
 import json
+import sqlite3
 
 # =========================
 # KONFIGURATION
@@ -36,6 +37,23 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0",
     "Ocp-Apim-Subscription-Key": API_KEY
 }
+
+
+# =========================
+# SQLITE
+# =========================
+
+connection = sqlite3.connect("winebot.db")
+cursor = connection.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS watchlist (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    watch_type TEXT,
+    watch_value TEXT
+)
+""")
+
+connection.commit()
 
 
 # =========================
