@@ -29,8 +29,6 @@ SEARCH_SORT_DIRECTION = "Ascending"
 
 
 
-seen_wines = set()
-
 HEADERS = {
     "User-Agent": "Mozilla/5.0",
     "Ocp-Apim-Subscription-Key": API_KEY
@@ -161,11 +159,10 @@ def scan_systembolaget():
 
                         wine_id = f"{producer}-{wine}-{vintage}"
 
-                        if wine_id in seen_wines:
+                        if wine_seen(wine_id):
                             continue
 
-                        seen_wines.add(wine_id)
-                        save_seen_wines()
+                        save_seen_wine(wine_id)            
                     
                         bot.send_message(
                             chat_id=CHAT_ID,
@@ -187,11 +184,10 @@ def scan_systembolaget():
 
                         wine_id = f"{producer}-{wine}-{vintage}"
 
-                        if wine_id in seen_wines:
+                        if wine_seen(wine_id):
                             continue
 
-                        seen_wines.add(wine_id)
-                        save_seen_wines()
+                        save_seen_wine(wine_id)
 
                         bot.send_message(
                             chat_id=CHAT_ID,
@@ -215,11 +211,10 @@ def scan_systembolaget():
 
                         wine_id = f"{producer}-{wine}-{vintage}"
 
-                        if wine_id in seen_wines:
+                        if wine_seen(wine_id):
                             continue
 
-                        seen_wines.add(wine_id)
-                        save_seen_wines()
+                        save_seen_wine(wine_id)               
 
                         bot.send_message(
                             chat_id=CHAT_ID,
@@ -243,11 +238,10 @@ def scan_systembolaget():
 
                         wine_id = f"{producer}-{wine}-{vintage}"
 
-                        if wine_id in seen_wines:
+                        if wine_seen(wine_id):
                             continue
 
-                        seen_wines.add(wine_id)
-                        save_seen_wines()
+                        save_seen_wine(wine_id)                        
 
                         bot.send_message(
                             chat_id=CHAT_ID,
@@ -271,11 +265,10 @@ def scan_systembolaget():
 
                         wine_id = f"{producer}-{wine}-{vintage}"
 
-                        if wine_id in seen_wines:
+                        if wine_seen(wine_id):
                             continue
 
-                        seen_wines.add(wine_id)
-                        save_seen_wines()
+                        save_seen_wine(wine_id)                        
 
                         bot.send_message(
                             chat_id=CHAT_ID,
@@ -298,11 +291,10 @@ def scan_systembolaget():
                     ):                   
                         wine_id = f"{producer}-{wine}-{vintage}"
 
-                        if wine_id in seen_wines:
+                        if wine_seen(wine_id):
                             continue
 
-                        seen_wines.add(wine_id)
-                        save_seen_wines()
+                        save_seen_wine(wine_id)
                     
                         bot.send_message(
                             chat_id=CHAT_ID,
@@ -432,24 +424,6 @@ def show_watchlist():
         
     return message 
 
-def save_seen_wines():
-
-        with open("seen_wines.json", "w") as file:
-            json.dump(list(seen_wines), file)
-
-def load_seen_wines():
-
-    global seen_wines
-
-    try:
-
-        with open("seen_wines.json", "r") as file:
-            seen_wines = set(json.load(file))
-
-    except FileNotFoundError:
-
-        save_seen_wines()
-
 def search_wines(search_term):   
     
     params = {
@@ -527,7 +501,6 @@ def search_wines(search_term):
     except Exception as e:
         return f"Fel vid sökning: {e}"
 
-load_seen_wines()
 
 bot = Bot(token=TELEGRAM_TOKEN)
 bot.delete_webhook(drop_pending_updates=True)
