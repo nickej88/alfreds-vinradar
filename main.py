@@ -269,6 +269,7 @@ def load_watchlist():
         with open("watchlist.json", "r") as file:
             WATCHLIST = json.load(file)
 
+        print("WATCHLIST LOADED:")
         print(WATCHLIST)
     
     except FileNotFoundError:
