@@ -17,8 +17,6 @@ API_KEY = os.getenv("SB_API_KEY")
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-WATCHLIST = []
-
 PAGE_SIZE = 30
 SORT_BY = "Score"
 SORT_DIRECTION = "Descending"
@@ -144,7 +142,7 @@ def scan_systembolaget():
                 country = product.get("country")
                 grape = product.get("grapes")
                 
-                for watch in load_watchlist_sql():
+                for watch in watchlist:
 
                     watch_type, watch_value = watch.split(":")
 
@@ -373,29 +371,6 @@ def add_watch_sql(search_term):
 
     connection.commit()
 
-
-def add_watch(search_term):
-
-    if search_term not in WATCHLIST:
-        WATCHLIST.append(search_term.lower())
-        save_watchlist()
-        return f"🍷 Tillagd i watchlist: {search_term}"
-
-    return f"🍷 {search_term} finns redan i watchlist."
-
-
-def remove_watch(search_term):
-
-    search_term = search_term.lower()
-    
-    if search_term in WATCHLIST:
-        WATCHLIST.remove(search_term)
-        save_watchlist()
-        return f"🍷 Borttagen från watchlist: {search_term}"
-            
-    return f"🍷 Hittade inte {search_term} i watchlist."
-
-
 def show_watchlist():
 
     watchlist = load_watchlist_sql()
@@ -427,30 +402,7 @@ def show_watchlist():
         elif watch_type == "style":
             message += f"🍷 Stil: {watch_value}\n"
         
-    return message
-
-def save_watchlist():
-
-    print(WATCHLIST)
-    
-    with open("watchlist.json", "w") as file:
-        json.dump(WATCHLIST, file)  
-
-def load_watchlist():
-
-    global WATCHLIST
-
-    try:
-
-        with open("watchlist.json", "r") as file:
-            WATCHLIST = json.load(file)
-
-        print("WATCHLIST LOADED:")
-        print(WATCHLIST)
-    
-    except FileNotFoundError:
-
-        save_watchlist()
+    return message 
 
 def save_seen_wines():
 
@@ -547,9 +499,6 @@ def search_wines(search_term):
     except Exception as e:
         return f"Fel vid sökning: {e}"
 
-
-
-load_watchlist()
 load_seen_wines()
 
 bot = Bot(token=TELEGRAM_TOKEN)
@@ -604,8 +553,6 @@ def check_messages():
                 add_watch_sql(search_term)
 
                 result = f"🍷 Tillagd i SQL-watchlist: {search_term}"
-
-                print(load_watchlist_sql())
                 
                 bot.send_message(
                     chat_id=CHAT_ID,
@@ -653,7 +600,7 @@ time.sleep(5)
 scan_local_products()
 
 loaded_products = load_products()
-print(load_watchlist_sql())
+
 print(f"🍷 Loaded products: {len(loaded_products)}")
 
 while True:
