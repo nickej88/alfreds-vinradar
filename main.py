@@ -599,8 +599,12 @@ def check_messages():
 
                 search_term = text.replace("/add ", "")
 
-                result = add_watch(search_term)
+                add_watch_sql(search_term)
 
+                result = f"🍷 Tillagd i SQL-watchlist: {search_term}"
+
+                print(load_watchlist_sql())
+                
                 bot.send_message(
                     chat_id=CHAT_ID,
                     text=result
