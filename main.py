@@ -53,7 +53,11 @@ CREATE TABLE IF NOT EXISTS watchlist (
 )
 """)
 
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+print(cursor.fetchall())
+
 connection.commit()
+print("🍷 SQLite-databas redo")
 
 
 # =========================
