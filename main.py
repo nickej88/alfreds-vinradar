@@ -340,24 +340,24 @@ def search_wines(search_term):
                 continue
 
             producer = product.get("producerName", "Okänd producent")
-            wine_name = product.get("productNameBold")
+            wine = product.get("productNameBold")
             vintage = product.get("vintage") or "NV"
             price = product.get("price")
             product_number = product["productNumber"]
             product_url = f"https://www.systembolaget.se/sortiment/?q={product_number}"    
             origin_level_1 = product.get("originLevel1")
-            origin_level_2 = product.get("originLevel2")
-            category_2 = product.get("categoryLevel2")
-            category_3 = product.get("categoryLevel3")
+            region = product.get("originLevel2")
+            style = product.get("categoryLevel2")
+            profile = product.get("categoryLevel3")
             country = product.get("country")
-            grapes = product.get("grapes")
+            grape = product.get("grapes")
             
 
-            print(
-                f"{wine_name} | "
-                f"{category_2} | "
-                f"{category_3}"
-            )
+            #     print(
+            #        f"{wine_name} | "
+            #        f"{category_2} | "
+            #        f"{category_3}"
+            #    )
     
             message += (
                 f"🍷 {producer}, {wine_name} | {vintage}\n"
