@@ -359,6 +359,21 @@ def load_watchlist_sql():
         for watch_type, watch_value in rows
     ]
 
+def add_watch_sql(search_term):
+
+    watch_type, watch_value = search_term.split(":")
+
+    cursor.execute("""
+    INSERT INTO watchlist (
+        watch_type,
+        watch_value
+    )
+    VALUES (?, ?)
+    """, (watch_type, watch_value))
+
+    connection.commit()
+
+
 def add_watch(search_term):
 
     if search_term not in WATCHLIST:
