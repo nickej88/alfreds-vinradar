@@ -183,6 +183,26 @@ def scan_systembolaget():
                         watch_value in origin_level_2.lower()
                     ):
 
+                        wine_id = f"{producer}-{wine}-{vintage}"
+
+                        if wine_id in seen_wines:
+                            continue
+
+                        seen_wines.add(wine_id)
+                        save_seen_wines()
+
+                        bot.send_message(
+                            chat_id=CHAT_ID,
+                            text=(
+                                f"🍷 Alfred hittade något intressant\n\n"
+                                f"Producent: {producer}\n"
+                                f"Vin: {wine}\n"
+                                f"Årgång: {vintage}\n"
+                                f"Pris: {price} kr\n"
+                                f"Släpp: {launch_date}"
+                            )
+                        )
+
                     elif (
                         watch_type == "country"
                         and
@@ -191,6 +211,26 @@ def scan_systembolaget():
                         watch_value in country.lower()
                     ):
 
+                        wine_id = f"{producer}-{wine}-{vintage}"
+
+                        if wine_id in seen_wines:
+                            continue
+
+                        seen_wines.add(wine_id)
+                        save_seen_wines()
+
+                        bot.send_message(
+                            chat_id=CHAT_ID,
+                            text=(
+                                f"🍷 Alfred hittade något intressant\n\n"
+                                f"Producent: {producer}\n"
+                                f"Vin: {wine}\n"
+                                f"Årgång: {vintage}\n"
+                                f"Pris: {price} kr\n"
+                                f"Släpp: {launch_date}"
+                            )
+                        )
+                    
                     elif (
                         watch_type == "grape"
                         and
@@ -198,6 +238,26 @@ def scan_systembolaget():
                         and
                         watch_value in grapes.lower()
                         ):
+
+                            wine_id = f"{producer}-{wine}-{vintage}"
+
+                        if wine_id in seen_wines:
+                            continue
+
+                        seen_wines.add(wine_id)
+                        save_seen_wines()
+
+                        bot.send_message(
+                            chat_id=CHAT_ID,
+                            text=(
+                                f"🍷 Alfred hittade något intressant\n\n"
+                                f"Producent: {producer}\n"
+                                f"Vin: {wine}\n"
+                                f"Årgång: {vintage}\n"
+                                f"Pris: {price} kr\n"
+                                f"Släpp: {launch_date}"
+                            )
+                        )
 
                     elif (
                         watch_type == "style"
@@ -207,7 +267,27 @@ def scan_systembolaget():
                         watch_value in category_2.lower()
                     ):
 
-                        
+                        wine_id = f"{producer}-{wine}-{vintage}"
+
+                        if wine_id in seen_wines:
+                            continue
+
+                        seen_wines.add(wine_id)
+                        save_seen_wines()
+
+                        bot.send_message(
+                            chat_id=CHAT_ID,
+                            text=(
+                                f"🍷 Alfred hittade något intressant\n\n"
+                                f"Producent: {producer}\n"
+                                f"Vin: {wine}\n"
+                                f"Årgång: {vintage}\n"
+                                f"Pris: {price} kr\n"
+                                f"Släpp: {launch_date}"
+                            )
+                        )
+
+                    
                         wine_id = f"{producer}-{wine_name}-{vintage}"
 
                         if wine_id in seen_wines:
