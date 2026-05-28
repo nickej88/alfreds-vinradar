@@ -66,7 +66,9 @@ def scan_systembolaget():
         total_pages = first_data["metadata"]["totalPages"]
 
         print(f"🍷 Hittade {total_pages} sidor")
-
+        
+        all_products = []
+        
         for page in range(1, total_pages + 1):     
         
             params = {
@@ -89,8 +91,8 @@ def scan_systembolaget():
             print(f"🍷 Sida {page}")
             
             products = data["products"]
-            save_products(products)
-
+            all_products.extend(products)
+            
             for product in products:
 
                 category = product.get("categoryLevel1")
@@ -266,29 +268,7 @@ def scan_systembolaget():
                         style
                         and
                         watch_value in style.lower()
-                    ):
-
-                        wine_id = f"{producer}-{wine}-{vintage}"
-
-                        if wine_id in seen_wines:
-                            continue
-
-                        seen_wines.add(wine_id)
-                        save_seen_wines()
-
-                        bot.send_message(
-                            chat_id=CHAT_ID,
-                            text=(
-                                f"🍷 Alfred hittade något intressant\n\n"
-                                f"Producent: {producer}\n"
-                                f"Vin: {wine}\n"
-                                f"Årgång: {vintage}\n"
-                                f"Pris: {price} kr\n"
-                                f"Släpp: {launch_date}"
-                            )
-                        )
-
-                    
+                    ):                   
                         wine_id = f"{producer}-{wine}-{vintage}"
 
                         if wine_id in seen_wines:
@@ -308,16 +288,10 @@ def scan_systembolaget():
                                 f"Släpp: {launch_date}"
                             )
                         )               
-
-                        print(
-                            f"{producer} | "
-                            f"{wine} | "
-                            f"{vintage} | "
-                            f"{price} kr | "
-                            f"{launch_date}"
-                        )
                     
             time.sleep(0.2)
+
+        save_products(all_products)
     
     except Exception as e:
         print(f"Fel: {e}")
