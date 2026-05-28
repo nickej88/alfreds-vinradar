@@ -144,7 +144,7 @@ def scan_systembolaget():
                 country = product.get("country")
                 grape = product.get("grapes")
                 
-                for watch in WATCHLIST:
+                for watch in load_watchlist_sql():
 
                     watch_type, watch_value = watch.split(":")
 
@@ -398,12 +398,14 @@ def remove_watch(search_term):
 
 def show_watchlist():
 
-    if not WATCHLIST:
+    watchlist = load_watchlist_sql()
+
+    if not watchlist:
         return "🍷 Watchlist är tom, sir."
 
     message = "🍷 Watchlist:\n\n"
 
-    for watch in WATCHLIST:
+    for watch in load_watchlist_sql():
 
         watch_type, watch_value = watch.split(":")
 
