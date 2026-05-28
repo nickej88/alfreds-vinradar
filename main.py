@@ -44,7 +44,7 @@ HEADERS = {
 def scan_systembolaget():
     
     print("🍷 Skannar via API...")
-
+    
     try:
         first_params = {
             "page": 1,
@@ -610,6 +610,10 @@ def check_messages():
 time.sleep(5)
 
 scan_systembolaget()
+
+loaded_products = load_products()
+
+print(f"🍷 Loaded products: {len(loaded_products)}")
 
 while True:
     schedule.run_pending()
