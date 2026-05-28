@@ -395,14 +395,14 @@ def save_seen_wine(wine_id):
 
 def show_watchlist():
 
-    for watch in watchlist:
+    watchlist = load_watchlist_sql()
 
     if not watchlist:
         return "🍷 Watchlist är tom, sir."
 
     message = "🍷 Watchlist:\n\n"
 
-    for watch in load_watchlist_sql():
+    for watch in watchlist:
 
         watch_type, watch_value = watch.split(":")
 
@@ -423,8 +423,8 @@ def show_watchlist():
 
         elif watch_type == "style":
             message += f"🍷 Stil: {watch_value}\n"
-        
-    return message 
+
+    return message
 
 def search_wines(search_term):   
     
