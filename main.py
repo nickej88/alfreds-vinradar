@@ -347,9 +347,9 @@ def scan_systembolaget():
 
 def scan_local_products():
 
-products = load_products_sql()
+    products = load_products_sql()
 
-print(f"🍷 Lokal SQL-scan: {len(products)} produkter")
+    print(f"🍷 Lokal SQL-scan: {len(products)} produkter")
 
 
 def load_products():
