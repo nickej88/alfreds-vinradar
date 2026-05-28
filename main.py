@@ -321,6 +321,22 @@ def scan_systembolaget():
     except Exception as e:
         print(f"Fel: {e}")
 
+def load_products():
+
+    try:
+
+        with open("products.json", "r") as file:
+            return json.load(file)
+
+    except FileNotFoundError:
+
+        return []
+
+def save_products(products):
+
+    with open("products.json", "w") as file:
+        json.dump(products, file)
+
 
 def add_watch(search_term):
 
@@ -438,6 +454,7 @@ def search_wines(search_term):
         data = response.json()
 
         products = data["products"]
+        save_products(products)
 
         if not products:
             return "🍷 Alfred hittade inget, sir."
