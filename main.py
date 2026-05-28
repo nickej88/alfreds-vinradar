@@ -39,7 +39,7 @@ HEADERS = {
 # SQLITE
 # =========================
 
-connection = sqlite3.connect("winebot.db")
+connection = sqlite3.connect("/data/winebot.db")
 cursor = connection.cursor()
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS watchlist (
@@ -356,7 +356,7 @@ def load_products():
 
     try:
 
-        with open("products.json", "r") as file:
+        with open("/data/products.json", "r") as file:
             return json.load(file)
 
     except FileNotFoundError:
@@ -365,7 +365,7 @@ def load_products():
 
 def save_products(products):
 
-    with open("products.json", "w") as file:
+    with open("/data/products.json", "w") as file:
         json.dump(products, file)
 
     print("🍷 Products sparade")
