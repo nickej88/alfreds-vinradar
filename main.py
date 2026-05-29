@@ -24,7 +24,7 @@ ASSORTMENT = "Tillfälligt sortiment"
 
 WINE_CATEGORY = "Vin"
 
-SEARCH_SIZE = 50
+SEARCH_SIZE = 10
 SEARCH_SORT_DIRECTION = "Ascending"
 
 
