@@ -168,6 +168,7 @@ def scan_systembolaget():
                     grape = ", ".join(grape)
                     
                 save_product_sql(
+                    product_number,
                     producer,
                     wine,
                     vintage,
@@ -439,6 +440,7 @@ def save_seen_wine(wine_id):
     connection.commit()
 
 def save_product_sql(
+    product_number,
     producer,
     wine,
     vintage,
@@ -450,7 +452,8 @@ def save_product_sql(
 ):
 
     cursor.execute("""
-    INSERT INTO products (
+    INSERT OR IGNORE INTO products (
+        product_number,
         producer,
         wine,
         vintage,
@@ -460,8 +463,9 @@ def save_product_sql(
         grape,
         style
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
+        product_number,
         producer,
         wine,
         vintage,
