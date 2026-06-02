@@ -85,9 +85,6 @@ print("🍷 SQLite-databas redo")
 def scan_systembolaget():
     
     print("🍷 Skannar via API...")
-
-    cursor.execute("DELETE FROM products")
-    connection.commit()
     
     try:
         first_params = {
