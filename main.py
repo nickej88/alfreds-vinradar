@@ -418,6 +418,20 @@ def add_watch_sql(search_term):
 
     connection.commit()
 
+def remove_watch_sql(search_term):
+
+    watch_type, watch_value = search_term.split(":")
+
+    cursor.execute("""
+    DELETE FROM watchlist
+    WHERE watch_type = ?
+    AND watch_value = ?
+    """, (watch_type, watch_value))
+
+    connection.commit()
+
+    return f"🍷 Borttagen från watchlist: {search_term}"
+
 def wine_seen(wine_id):
 
     cursor.execute("""
@@ -647,16 +661,16 @@ def check_messages():
                     text=result
                 )
 
-            #elif text.startswith("/remove "):
-            #    
-            #    search_term = text.replace("/remove ", "")
-            #
-            #      result = remove_watch(search_term)
-            #
-            #   bot.send_message(
-            #       chat_id=CHAT_ID,
-            #        text=result
-            #    )
+            elif text.startswith("/remove "):
+
+                search_term = text.replace("/remove ", "")
+
+                result = remove_watch_sql(search_term)
+
+                bot.send_message(
+                    chat_id=CHAT_ID,
+                    text=result
+                )
 
             elif text == "/watchlist":
 
