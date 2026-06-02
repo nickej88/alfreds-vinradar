@@ -106,6 +106,8 @@ def scan_systembolaget():
 
         print(f"🍷 Hittade {total_pages} sidor")
         
+        watchlist = load_watchlist_sql()
+        
         all_products = []
         
         for page in range(1, total_pages + 1):     
@@ -173,8 +175,6 @@ def scan_systembolaget():
                     grape,
                     style
                 )
-
-                watchlist = load_watchlist_sql()
                 
                 for watch in watchlist:
 
