@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS products (
 """)
 
 cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
-cursor.execute("DROP TABLE IF EXISTS products")
+
 print(cursor.fetchall())
 
 connection.commit()
