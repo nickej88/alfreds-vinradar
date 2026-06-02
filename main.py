@@ -525,6 +525,37 @@ def show_watchlist():
 
     return message
 
+def show_help():
+
+    return (
+        "🍷 Alfreds Vinradar\n\n"
+        "/search <sökord>\n"
+        "Sök viner hos Systembolaget.\n\n"
+
+        "/add producer:<namn>\n"
+        "/add wine:<namn>\n"
+        "/add region:<namn>\n"
+        "/add country:<namn>\n"
+        "/add grape:<namn>\n"
+        "/add style:<namn>\n\n"
+
+        "/remove producer:<namn>\n"
+        "/remove wine:<namn>\n"
+        "/remove region:<namn>\n"
+        "/remove country:<namn>\n"
+        "/remove grape:<namn>\n"
+        "/remove style:<namn>\n\n"
+
+        "/watchlist\n"
+        "Visa bevakningar.\n\n"
+
+        "scan\n"
+        "Kör manuell scan.\n\n"
+
+        "vin\n"
+        "Kontrollera att Alfred lever."
+    )
+
 def search_wines(search_term):   
     
     params = {
@@ -671,7 +702,16 @@ def check_messages():
                     chat_id=CHAT_ID,
                     text=result
                 )
+            
+            elif text == "/help":
 
+                result = show_help()
+
+                bot.send_message(
+                    chat_id=CHAT_ID,
+                    text=result
+                )
+                
             elif text == "/watchlist":
 
                 result = show_watchlist()
@@ -691,10 +731,12 @@ def check_messages():
                scan_systembolaget()
 
             else:
-               bot.send_message(
-               chat_id=CHAT_ID,
-               text=f"Jag förstår inte kommandot: {text}"
-               )
+                result = show_help()
+
+                bot.send_message(
+                    chat_id=CHAT_ID,
+                    text=result
+                )
 
 time.sleep(5)
 
