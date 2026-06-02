@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS seen_wines (
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_number TEXT UNIQUE,
     producer TEXT,
     wine TEXT,
     vintage TEXT,
@@ -71,6 +72,7 @@ CREATE TABLE IF NOT EXISTS products (
 """)
 
 cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+cursor.execute("DROP TABLE IF EXISTS products")
 print(cursor.fetchall())
 
 connection.commit()
@@ -83,6 +85,9 @@ print("🍷 SQLite-databas redo")
 def scan_systembolaget():
     
     print("🍷 Skannar via API...")
+
+    cursor.execute("DELETE FROM products")
+    connection.commit()
     
     try:
         first_params = {
